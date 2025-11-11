@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name='es_locale.js' />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>DB Manager</title>
+</h:head>
+<h:body>
+
+    <div id="wrapper">
+        <ui:include src="header.xhtml" />
+
+            <div id="content">
+            <div style="width: 923px; text-align: center;">
+            <div class="contenido">
+                <h:form id="form" prependId="false">
+                    <p:breadCrumb style="margin-bottom:30px">
+                        <p:menuitem value="Categories" url="#" />
+                        <p:menuitem value="DB" />
+                    </p:breadCrumb>
+
+                    <p:ajaxStatus style="position: fixed; bottom: 50px; right: 50px;">
+                        <f:facet name="default">
+                            <h:outputText value=""/>
+                        </f:facet>
+
+                        <f:facet name="start">
+                            <ui:fragment>
+                                <p:graphicImage id="ajaxLoader" value="/resources/imagenes/snoopy.gif" style="width: 50px; height: 87px;"/>
+                                <p style="color:#ffffff">Cargando ...</p>
+                            </ui:fragment>
+                        </f:facet>
+
+                        <f:facet name="complete">
+                            <h:outputText value="" />
+                        </f:facet>
+                    </p:ajaxStatus>
+
+                    <p:growl id="msg" />
+
+                    <h2>Limpiar BD</h2>
+
+                    <h:panelGrid columns="4" style="margin-bottom:5px" cellpadding="5">
+                        <p:commandButton value="Limpiar COLALTATITCAR" actionListener="#{adminBean.deleteAllByTableId(1)}" ajax="false"/>
+                        <p:commandButton value="Limpiar COLALTACARGAS" action="#{adminBean.deleteAllByTableId(2)}"/>
+                        <p:commandButton value="Limpiar COLEXCLUIRTITULAR" action="#{adminBean.deleteAllByTableId(3)}"/>
+                        <p:commandButton value="Limpiar COLEXCLUIRCARGA" action="#{adminBean.deleteAllByTableId(4)}"/>
+
+                        <p:commandButton value="Marcar procesado COLALTATITCAR" action="#{adminBean.procesadoByTableId(1)}"/>
+                        <p:commandButton value="Marcar procesado COLALTACARGAS" action="#{adminBean.procesadoByTableId(2)}"/>
+                        <p:commandButton value="Marcar procesado COLEXCLUIRTITULAR" action="#{adminBean.procesadoByTableId(3)}"/>
+                        <p:commandButton value="Marcar procesado COLEXCLUIRCARGA" action="#{adminBean.procesadoByTableId(4)}"/>
+                    </h:panelGrid>
+
+                </h:form>
+            </div>
+            </div> <!-- resize div -->
+            </div> <!-- content -->
+
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

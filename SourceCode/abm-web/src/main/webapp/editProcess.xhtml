@@ -1,0 +1,335 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="/WEB-INF/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="processId" value="#{editProcessBean.processId}" />
+        <f:event type="preRenderView" listener="#{editProcessBean.init}" />
+    </f:metadata>
+
+    <ui:define name="title">Configuraciones del corredor</ui:define>
+    <ui:define name="viewname">
+        <li><p:link outcome="/processes">Corredores</p:link></li>
+        <li>/ Configuración del corredor</li>
+    </ui:define>
+
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>Configuración del <b><p:outputLabel id="title_lb1" value="#{(editProcessBean.editItem.multiBroker == false ? 'corredor ':'multicorredor ')}" style="font-family:Georgia"/> <p:outputLabel id="title_lb2" value="#{editProcessBean.editItem.brokerName}" rendered="#{editProcessBean.processId != null}" style="font-family:Georgia"/></b></h1>
+
+                <p:growl id="growl" showDetail="true"/>
+
+                <h:form id="form" styleClass="ml-form" prependId="false">
+                    <p:wizard flowListener="#{editProcessBean.onFlowProcess}" nextLabel="Siguiente" backLabel="Volver" showStepStatus="true" showNavBar="true" onnext="">
+                        <p:tab id="basicData" title="Datos Básicos">
+                            <p:messages/>
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:outputPanel>
+                                    <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="input-process-name"               value="Nombre del proceso" style="font-weight: bold" styleClass="Wid20 Label"  />
+                                        <p:inputText id="input-process-name"                  value="#{editProcessBean.editItem.name}" styleClass="Wid90" required="true" label="Nombre del proceso"
+                                                    requiredMessage="Nombre del proceso: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-check-multibroker"          value="¿Multicorredor?" styleClass="Wid20" />
+                                        <p:selectBooleanCheckbox id="input-check-multibroker" value="#{editProcessBean.editItem.multiBroker}" styleClass="Wid90" >
+                                            <p:ajax update="input-broker-name-lb, input-broker-rut-lb,title_lb1"/>
+                                        </p:selectBooleanCheckbox>
+
+                                        <p:outputLabel id="input-broker-name-lb"              value="Nombre #{editProcessBean.editItem.multiBroker == true ? 'Multicorredor' : 'Corredor'}" for="input-broker-name" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-broker-name"                   value="#{editProcessBean.editItem.brokerName}" styleClass="Wid90" required="true" label="Nombre Corredor / Nombre Multicorredor"
+                                                     requiredMessage="Nombre Corredor / Nombre Multicorredor: El campo es obligatorio." >
+                                            <p:ajax event="keyup" update="title_lb2" />
+                                        </p:inputText>
+
+                                        <p:outputLabel id="input-broker-rut-lb"              value="Rut #{editProcessBean.editItem.multiBroker == true ? 'Multicorredor' : 'Corredor'}" for="input-broker-rut" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-broker-rut"                    value="#{editProcessBean.editItem.brokerRut}" styleClass="Wid90" required="true" label="Rut Corredor / Rut Multicorredor"
+                                                     requiredMessage="Rut Corredor / Rut Multicorredor: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-error-mail"                 value="E-mail para errores" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-error-mail"                    value="#{editProcessBean.editItem.errorMail}" styleClass="Wid90" required="true" label="E-mail para errores"
+                                                     validatorMessage="Formato de e-mail inválido" requiredMessage="E-mail para errores: El campo es obligatorio.">
+                                            <f:validateRegex
+                                                    pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$" />
+                                        </p:inputText>
+
+                                        <p:outputLabel for="input-check-multibroker"          value="¿Maneja imágenes en sus entregas?" styleClass="Wid20" />
+                                        <p:selectBooleanCheckbox id="input-check-no-barcode" value="#{editProcessBean.editItem.considerBarcodes}" styleClass="Wid90" />
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:panelGrid>
+
+                            <h:outputScript>$("#input-broker-rut").Rut();</h:outputScript>
+                        </p:tab>
+
+                        <p:tab id="pipeSponsor" title="Parámetros PipeSponsor">
+                            <p:messages/>
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:outputPanel>
+                                    <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel id="input-process-fdid-at-lb"              value="FileDefinitionId Alta Titulares" for="input-process-fdid-at" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:outputPanel>
+                                            <div class="ui-inputgroup">
+                                                <p:inputText id="input-process-fdid-at"                    value="#{editProcessBean.editItem.fileDefinitionIdAltaTit}" styleClass="Wid90" required="true" label="FileDefinitionId Alta Titulares"
+                                                             requiredMessage="FileDefinitionId Alta Titulares: El campo es obligatorio."/>
+                                                <p:commandLink id="qm-filedef1"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                <p:tooltip id="ttqm-filedef1" for="qm-filedef1" position="bottom">
+                                                    <p>ID correspondiente a la Alta de Titulares que se envía al servicio de PipeSponsor.</p>
+                                                </p:tooltip>
+                                            </div>
+                                        </p:outputPanel>
+
+
+
+                                        <p:outputLabel id="input-process-fdid-ac-lb"              value="FileDefinitionId Alta Carga" for="input-process-fdid-ac" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:outputPanel>
+                                            <div class="ui-inputgroup">
+                                                <p:inputText id="input-process-fdid-ac"                    value="#{editProcessBean.editItem.fileDefinitionIdAltaCar}" styleClass="Wid90" required="true" label="FileDefinitionId Alta Carga"
+                                                             requiredMessage="FileDefinitionId Alta Carga: El campo es obligatorio."/>
+                                                <p:commandLink id="qm-filedef2"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                <p:tooltip id="ttqm-filedef2" for="qm-filedef2" position="bottom">
+                                                    <p>ID correspondiente a la Alta de Cargas que se envía al servicio de PipeSponsor.</p>
+                                                </p:tooltip>
+                                            </div>
+                                        </p:outputPanel>
+
+
+                                        <p:outputLabel id="input-process-fdid-et-lb"              value="FileDefinitionId Exclusion Titulares" for="input-process-fdid-et" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:outputPanel>
+                                            <div class="ui-inputgroup">
+                                                <p:inputText id="input-process-fdid-et"                    value="#{editProcessBean.editItem.fileDefinitionIdExcTit}" styleClass="Wid90" required="true" label="FileDefinitionId Exclusion Titulares"
+                                                             requiredMessage="FileDefinitionId Exclusion Titulares: El campo es obligatorio."/>
+                                                <p:commandLink id="qm-filedef3"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                <p:tooltip id="ttqm-filedef3" for="qm-filedef3" position="bottom">
+                                                    <p>ID correspondiente a la Exclusión de Titulares que se envía al servicio de PipeSponsor.</p>
+                                                </p:tooltip>
+                                            </div>
+                                        </p:outputPanel>
+
+                                        <p:outputLabel id="input-process-fdid-ec-lb"              value="FileDefinitionId Exclusion Carga" for="input-process-fdid-ec" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:outputPanel>
+                                            <div class="ui-inputgroup">
+                                                <p:inputText id="input-process-fdid-ec"                    value="#{editProcessBean.editItem.fileDefinitionIdExcCar}" styleClass="Wid90" required="true" label="FileDefinitionId Exclusion Carga"
+                                                             requiredMessage="FileDefinitionId Exclusion Carga: El campo es obligatorio."/>
+                                                <p:commandLink id="qm-filedef4"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                <p:tooltip id="ttqm-filedef4" for="qm-filedef4" position="bottom">
+                                                    <p>ID correspondiente a la Exclusión de Cargas que se envía al servicio de PipeSponsor.</p>
+                                                </p:tooltip>
+                                            </div>
+                                        </p:outputPanel>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:panelGrid>
+
+                            <h:outputScript>$("#input-broker-rut").Rut();</h:outputScript>
+                        </p:tab>
+
+                        <p:tab id="sftpData" title="Datos Repositorio SFTP">
+                            <p:messages id="sftpMsg"/>
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:outputPanel>
+                                    <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="input-sftp-host"                  value="Host" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-sftp-host"                     value="#{editProcessBean.editItem.host}" styleClass="Wid90" required="true"
+                                                     requiredMessage="Host: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-sftp-port"                  value="Puerto" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-sftp-port"                     value="#{editProcessBean.editItem.port}" styleClass="Wid90" required="true"
+                                                     requiredMessage="Puerto: El campo es obligatorio." type="number"/>
+
+                                        <p:outputLabel for="input-sftp-user"                  value="Usuario" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-sftp-user"                     value="#{editProcessBean.editItem.user}" styleClass="Wid90" required="true"
+                                                     requiredMessage="Usuario: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-sftp-password"              value="Contraseña" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-sftp-password"                  value="#{editProcessBean.editItem.password}" styleClass="Wid90" required="true"
+                                                    requiredMessage="Password: El campo es obligatorio." />
+
+                                        <p:outputLabel value="" styleClass="Wid20 Label" />
+                                        <p:commandButton id="testSFTP" icon="fa fa-play" value="Probar conexión" actionListener="#{editProcessBean.testSFTP()}" update="growl" process="@this, input-sftp-host, input-sftp-port, input-sftp-user, input-sftp-password" styleClass="table-button green-btn center"/>
+                                    </p:panelGrid>
+
+                                </p:outputPanel>
+                            </p:panelGrid>
+
+                        </p:tab>
+
+                        <p:tab id="processTimer" title="Temporizador del Proceso">
+                            <p:messages/>
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+
+                                <p:outputPanel>
+                                    <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="input-processtimer-time"         value="Hora de ejecución" styleClass="Wid20 Label"/>
+                                        <p:calendar id="input-processtimer-time"             value="#{editProcessBean.editItem.processTimer.parsedDate}" pattern="HH:mm" placeholder="HH:mm"  styleClass="Wid90" timeOnly="true"/>
+
+                                        <p:outputLabel for="input-processtimer-days"         value="Días a la semana" styleClass="Wid20 Label"  />
+                                        <p:selectManyCheckbox id="input-processtimer-days"   value="#{editProcessBean.editItem.processTimer.days}" layout="grid" columns="3">
+                                            <f:selectItem itemLabel="Lunes" itemValue="1" />
+                                            <f:selectItem itemLabel="Martes" itemValue="2" />
+                                            <f:selectItem itemLabel="Miércoles" itemValue="3" />
+                                            <f:selectItem itemLabel="Jueves" itemValue="4" />
+                                            <f:selectItem itemLabel="Viernes" itemValue="5" />
+                                            <f:selectItem itemLabel="Sábado" itemValue="6" />
+                                            <f:selectItem itemLabel="Domingo" itemValue="7" />
+                                        </p:selectManyCheckbox>
+
+                                        <p:outputLabel for="input-processtimer-dayofmonth"   value="Día del mes" styleClass="Wid20 Label"  />
+                                        <p:outputPanel>
+                                            <div class="ui-inputgroup">
+                                                <p:inputText id="input-processtimer-dayofmonth"      value="#{editProcessBean.editItem.processTimer.dayOfWeek}" placeholder="1 a 30" styleClass="Wid90" required="true"/>
+                                                <p:commandLink id="qm"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                <p:tooltip id="ttqm-processtimer-dayofmonth" for="qm" position="bottom">
+                                                    <p>* para todos los días del mes.</p>
+                                                    <p>1 a 31. Por ejemplo: "15".</p>
+                                                    <p>–7 a –1 (a número negativo significa el día <br/>o la cantidad de días antes del fin de mes).<br/>Por ejemplo: "–3".</p>
+                                                    <p>El texto "Last", para el último día del mes.</p>
+                                                </p:tooltip>
+                                            </div>
+                                        </p:outputPanel>
+
+                                        <p:outputLabel for="input-processtimer-month"        value="Mes" styleClass="Wid20 Label"  />
+                                        <p:selectManyCheckbox id="input-processtimer-month"  value="#{editProcessBean.editItem.processTimer.months}" layout="grid" columns="3">
+                                            <f:selectItem itemLabel="Enero" itemValue="1" />
+                                            <f:selectItem itemLabel="Febrero" itemValue="2" />
+                                            <f:selectItem itemLabel="Marzo" itemValue="3" />
+                                            <f:selectItem itemLabel="Abril" itemValue="4" />
+                                            <f:selectItem itemLabel="Mayo" itemValue="5" />
+                                            <f:selectItem itemLabel="Junio" itemValue="6" />
+                                            <f:selectItem itemLabel="Julio" itemValue="7" />
+                                            <f:selectItem itemLabel="Agosto" itemValue="8" />
+                                            <f:selectItem itemLabel="Septiembre" itemValue="9" />
+                                            <f:selectItem itemLabel="Octubre" itemValue="10" />
+                                            <f:selectItem itemLabel="Noviembre" itemValue="11" />
+                                            <f:selectItem itemLabel="Diciembre" itemValue="12" />
+                                        </p:selectManyCheckbox>
+
+                                        <p:outputLabel for="input-processtimer-year"        value="Año" styleClass="Wid20 Label"  />
+                                        <p:outputPanel>
+                                            <div class="ui-inputgroup">
+                                                <p:inputText id="input-processtimer-year"           value="#{editProcessBean.editItem.processTimer.year}" styleClass="Wid90" required="true"/>
+                                                <p:commandLink id="qm2"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                <p:tooltip id="ttqm-processtimer-year" for="qm2" position="bottom">
+                                                    <p>* para todos los años.</p>
+                                                    <p>Año en formato de 4 dígitos. Por ejemplo: "2011".</p>
+                                                </p:tooltip>
+                                            </div>
+                                        </p:outputPanel>
+                                    </p:panelGrid>
+
+                                </p:outputPanel>
+
+                            </p:panelGrid>
+                        </p:tab>
+
+                        <p:tab id="preingresoTimer" title="Temporizador Envío Logs Preingreso">
+                            <p:messages/>
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:outputPanel id="manualOrAutomaticPanel">
+                                    <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="input-logtimer-switch"           value="¿Envío automático?" styleClass="Wid20 Label"  />
+                                        <p:inputSwitch id="input-logtimer-switch"            value="#{editProcessBean.editItem.automaticSendPreingreso}">
+                                            <p:ajax update="updatableFragment" />
+                                        </p:inputSwitch>
+                                    </p:panelGrid>
+                                </p:outputPanel>
+
+                                <p:fragment id="updatableFragment">
+                                    <p:outputPanel id="preIngresoTimerFormPanel" rendered="#{editProcessBean.editItem.automaticSendPreingreso eq true}">
+                                        <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                            <p:outputLabel for="input-logtimer-time"         value="Hora de ejecución" styleClass="Wid20 Label"  />
+                                            <p:calendar id="input-logtimer-time"             value="#{editProcessBean.editItem.logTimer.parsedDate}" pattern="HH:mm" placeholder="HH:mm" styleClass="Wid90" timeOnly="true"/>
+
+                                            <p:outputLabel for="input-logtimer-days"         value="Días a la semana" styleClass="Wid20 Label"  />
+                                            <p:selectManyCheckbox id="input-logtimer-days"   value="#{editProcessBean.editItem.logTimer.days}" layout="grid" columns="3">
+                                                <f:selectItem itemLabel="Lunes" itemValue="1" />
+                                                <f:selectItem itemLabel="Martes" itemValue="2" />
+                                                <f:selectItem itemLabel="Miércoles" itemValue="3" />
+                                                <f:selectItem itemLabel="Jueves" itemValue="4" />
+                                                <f:selectItem itemLabel="Viernes" itemValue="5" />
+                                                <f:selectItem itemLabel="Sábado" itemValue="6" />
+                                                <f:selectItem itemLabel="Domingo" itemValue="7" />
+                                            </p:selectManyCheckbox>
+
+                                            <p:outputLabel for="input-logtimer-dayofmonth"   value="Día del mes" styleClass="Wid20 Label"  />
+                                            <p:outputPanel>
+                                                <div class="ui-inputgroup">
+                                                    <p:inputText id="input-logtimer-dayofmonth"      value="#{editProcessBean.editItem.logTimer.dayOfWeek}" placeholder="1 a 31" styleClass="Wid90" required="true"/>
+                                                    <p:commandLink id="qm3"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                    <p:tooltip id="ttqm-logtimer-dayofmonth" for="qm3" position="bottom">
+                                                        <p>* para todos los días del mes.</p>
+                                                        <p>1 a 31. Por ejemplo: "15".</p>
+                                                        <p>–7 a –1 (a número negativo significa el día <br/>o la cantidad de días antes del fin de mes).<br/>Por ejemplo: "–3".</p>
+                                                        <p>El texto "Last", para el último día del mes.</p>
+                                                    </p:tooltip>
+                                                </div>
+                                            </p:outputPanel>
+
+                                            <p:outputLabel for="input-logtimer-month"        value="Mes" styleClass="Wid20 Label"  />
+                                            <p:selectManyCheckbox id="input-logtimer-month"  value="#{editProcessBean.editItem.logTimer.months}" layout="grid" columns="3">
+                                                <f:selectItem itemLabel="Enero" itemValue="1" />
+                                                <f:selectItem itemLabel="Febrero" itemValue="2" />
+                                                <f:selectItem itemLabel="Marzo" itemValue="3" />
+                                                <f:selectItem itemLabel="Abril" itemValue="4" />
+                                                <f:selectItem itemLabel="Mayo" itemValue="5" />
+                                                <f:selectItem itemLabel="Junio" itemValue="6" />
+                                                <f:selectItem itemLabel="Julio" itemValue="7" />
+                                                <f:selectItem itemLabel="Agosto" itemValue="8" />
+                                                <f:selectItem itemLabel="Septiembre" itemValue="9" />
+                                                <f:selectItem itemLabel="Octubre" itemValue="10" />
+                                                <f:selectItem itemLabel="Noviembre" itemValue="11" />
+                                                <f:selectItem itemLabel="Diciembre" itemValue="12" />
+                                            </p:selectManyCheckbox>
+
+                                            <p:outputLabel for="input-logtimer-year"        value="Año" styleClass="Wid20 Label"  />
+                                            <p:outputPanel>
+                                                <div class="ui-inputgroup">
+                                                    <p:inputText id="input-logtimer-year"           value="#{editProcessBean.editItem.logTimer.year}" styleClass="Wid90" required="true"/>
+                                                    <p:commandLink id="qm4"><span class="ui-inputgroup-addon"><i class="fa fa-question-circle"></i></span></p:commandLink>
+                                                    <p:tooltip id="ttqm-logtimer-year" for="qm4" position="bottom">
+                                                        <p>* para todos los días del mes.</p>
+                                                        <p>Año en formato de 4 dígitos. Por ejemplo: "2011".</p>
+                                                    </p:tooltip>
+                                                </div>
+                                            </p:outputPanel>
+
+                                            <p:outputLabel for="input-logtimer-range"        value="Rango de logs a enviar" styleClass="Wid20 Label"  />
+                                            <p:selectOneRadio id="input-logtimer-range" value="#{editProcessBean.editItem.rangoTypeId}"  layout="grid" columns="4">
+                                                <f:selectItem itemLabel="Diario" itemValue="1" />
+                                                <f:selectItem itemLabel="Semanal" itemValue="2" />
+                                                <f:selectItem itemLabel="Mensual" itemValue="3" />
+                                                <f:selectItem itemLabel="Anual" itemValue="4" />
+                                            </p:selectOneRadio>
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </p:fragment>
+
+                                <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="" styleClass="Wid20 Label"  />
+                                    <p:commandButton id="save" icon="fa fa-check" value="Guardar corredor" action="#{editProcessBean.save}" process="@all" styleClass="table-button green-btn center"/>
+                                </p:panelGrid>
+                            </p:panelGrid>
+
+                        </p:tab>
+                    </p:wizard>
+                </h:form>
+            </div>
+        </div>
+
+
+
+    </ui:define>
+
+</ui:composition>
+
+

@@ -1,0 +1,62 @@
+
+package cl.blueprintsit.ws.pipesponsor;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="legacyConceptMappingId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "legacyConceptMappingId"
+})
+@XmlRootElement(name = "GetTargetMappingDataByLegacyConceptMapping")
+public class GetTargetMappingDataByLegacyConceptMapping {
+
+    protected Long legacyConceptMappingId;
+
+    /**
+     * Gets the value of the legacyConceptMappingId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getLegacyConceptMappingId() {
+        return legacyConceptMappingId;
+    }
+
+    /**
+     * Sets the value of the legacyConceptMappingId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setLegacyConceptMappingId(Long value) {
+        this.legacyConceptMappingId = value;
+    }
+
+}

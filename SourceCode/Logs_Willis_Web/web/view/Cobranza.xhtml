@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name="es_locale.js" />
+    <h:outputScript library="js" name="calendar-localization.js" />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Cobranza PACDBCH</title>
+</h:head>
+
+<h:body>
+    <div id="wrapper">
+
+        <ui:include src="header.xhtml" />
+
+        <div id="content">
+            <div style="width: 923px; text-align: center;">
+                <div class="contenido">
+
+                    <h:form>
+
+                        <center>
+
+                            <h2>Cobranza PACDBCH</h2>
+
+                            <div class="polig3" >
+
+                                <p:outputLabel style="color: #007cc2" >Previsualizar Cobranza del Periodo</p:outputLabel>
+                                <br></br>
+                                <br></br>
+
+                                <div class="input-nuevo" align="left">
+
+                                    <p:commandButton value="Visualizar" style="margin-right: 50px"></p:commandButton>
+                                    <p:commandButton value="Validar" style="margin-right: 50px"></p:commandButton>
+                                    <p:commandButton value="Exportar a XLSX"></p:commandButton>
+
+                                </div>
+                                <br></br>
+                                <br></br>
+
+                                <div class="input-nuevo">
+                                    <p:dataTable>
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="#">
+                                            <h:outputText value="#"></h:outputText>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <br></br>
+
+                            <div class="polig" >
+
+                                <p:outputLabel style="color: #007cc2">Enviar Archivo a Corredora</p:outputLabel>
+                                <br></br>
+                                <br></br>
+                                <div class="input-nuevo">
+
+                                    <p:inputText style="margin-right: 50px"></p:inputText>
+                                    <p:commandButton value="Enviar Archivo"></p:commandButton>
+                                </div>
+                                <br></br>
+                                <br></br>
+
+
+
+                            </div>
+
+                        </center>
+                    </h:form>
+
+
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+
+</h:body>
+
+
+</html>

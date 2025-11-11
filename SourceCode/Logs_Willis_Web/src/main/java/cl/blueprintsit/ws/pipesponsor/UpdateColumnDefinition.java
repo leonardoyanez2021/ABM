@@ -1,0 +1,65 @@
+
+package cl.blueprintsit.ws.pipesponsor;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType>
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="columnDefinition" type="{http://schemas.datacontract.org/2004/07/SmartGear.MetLife.Srp.Application.MainBoundedContext.DTO}ColumnDefinitionDTO" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "columnDefinition"
+})
+@XmlRootElement(name = "UpdateColumnDefinition")
+public class UpdateColumnDefinition {
+
+    @XmlElementRef(name = "columnDefinition", namespace = "http://tempuri.org/", type = JAXBElement.class)
+    protected JAXBElement<ColumnDefinitionDTO> columnDefinition;
+
+    /**
+     * Gets the value of the columnDefinition property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code <}{@link ColumnDefinitionDTO }{@code >}
+     *     
+     */
+    public JAXBElement<ColumnDefinitionDTO> getColumnDefinition() {
+        return columnDefinition;
+    }
+
+    /**
+     * Sets the value of the columnDefinition property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code <}{@link ColumnDefinitionDTO }{@code >}
+     *     
+     */
+    public void setColumnDefinition(JAXBElement<ColumnDefinitionDTO> value) {
+        this.columnDefinition = ((JAXBElement<ColumnDefinitionDTO> ) value);
+    }
+
+}

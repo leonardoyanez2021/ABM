@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name="es_locale.js" />
+    <h:outputScript library="js" name="calendar-localization.js" />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Unificación de Devengo</title>
+</h:head>
+
+<div id="wrapper">
+
+    <ui:include src="header.xhtml" />
+
+    <div id="content">
+        <div style="width: 923px; text-align: center;">
+            <div class="contenido">
+
+                <h:form>
+
+                    <center>
+
+                        <h2>Unificación de Devengo</h2>
+
+                        <div class="polig4" >
+
+                            <p:outputLabel style="color: #007cc2">Por Periodo</p:outputLabel>
+                            <br></br>
+                            <br></br>
+
+                            <div class="input-nuevo">
+
+                                <p:commandButton value="Buscar Devengos" style="margin-right: 10px"></p:commandButton>
+                                <p:inputText value="" styleClass="input-nuevo" style="width: 100px"></p:inputText>
+s
+                            </div>
+
+                            <br></br>
+                            <br></br>
+
+                            <div class="input-nuevo">
+                                <p:dataTable style="width: 500px">
+                                    <p:column headerText="Poliza">
+                                        <h:outputText value="#"></h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Periodo">
+                                        <h:outputText value="#"></h:outputText>
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:selectManyCheckbox></h:selectManyCheckbox>
+                                    </p:column>
+
+                                </p:dataTable>
+
+                                <br></br>
+                                <br></br>
+
+                            </div>
+
+                            <div class="input-nuevo">
+
+                                <p:commandButton value="Unificar Devengos Seleccionados"></p:commandButton>
+
+
+                            </div>
+                        </div>
+
+                            <br></br>
+                            <br></br>
+
+                        <div class="polig3">
+
+                            <p:outputLabel style="color: #007cc2">Unificar Devengos Poliza/Periodo</p:outputLabel>
+                            <br></br>
+                            <br></br>
+
+                            <div class="input-nuevo">
+
+                                <p:inputText value="Periodo" styleClass="input-nuevo" style="width: 100px"></p:inputText>
+
+                                <p:inputText value="Poliza1, Poliza2, Poliza3" styleClass="input-nuevo" style="width: 300px"></p:inputText>
+                            </div>
+                            <br></br>
+                            <br></br>
+                            <p:commandButton value="Unificar Devengos"></p:commandButton>
+
+                        </div>
+
+
+                    </center>
+                </h:form>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name='es_locale.js' />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Enviar Logs SFTP</title>
+</h:head>
+
+
+<h:body>
+    <div id="wrapper">
+        <ui:include src="header.xhtml" />
+            <div id="content">
+                <div style="width: 923px; text-align: center;">
+                    <div class="contenido">
+
+                    <h:form id="form" prependId="false">
+
+                        <p:breadCrumb style="margin-bottom:30px">
+                            <p:menuitem value="Categories" url="#" />
+                            <p:menuitem value="Log" />
+                            <p:menuitem value="Enviar Log SFTP" url="#" />
+                        </p:breadCrumb>
+
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                        <h:panelGrid id="viewLog" columns="5" cellpadding="5">
+
+                            <p:outputLabel  value="Rango fechas:" />
+                            <p:calendar id="iniFecha" value="#{sendSFTPBean.dateIni}"  >
+                                <p:ajax event="dateSelect" listener="#{sendSFTPBean.onDateSelect}" update="finFecha" />
+                            </p:calendar>
+
+                            <p:outputLabel  value="Hasta:" />
+                            <p:calendar id="finFecha" value="#{sendSFTPBean.dateFin}" />
+
+                            <p:commandButton value="Enviar" id="nonAjax" actionListener="#{sendSFTPBean.buttonAction}" ajax="false" />
+                        </h:panelGrid>
+
+                    </h:form>
+                    </div> <!-- contenido -->
+                </div> <!-- resize div -->
+            </div> <!-- content -->
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

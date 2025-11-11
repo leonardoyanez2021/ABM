@@ -1,0 +1,197 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                template="WEB-INF/template.xhtml">
+
+    <ui:define name="title">Envío Log Preingreso</ui:define>
+    <ui:define name="viewname">
+        <li><p:link outcome="/preIngresoSend">Envío Log Preingreso</p:link></li>
+    </ui:define>
+
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>Envío Logs de Preingreso</h1>
+
+                <div class="card" style="overflow:hidden;">
+
+                    <h:form id="form" prependId="false">
+                        <p:growl id="globalMessage" showDetail="true" showSummary="true"/>
+
+                        <style>
+                            body .ui-paginator .ui-paginator-rpp-label {
+                                display: none !important;
+                                float: none !important;
+                            }
+
+                            body .ui-dialog .ui-dialog-footer {
+                                padding: 0px 0px !important;
+                            }
+
+                            body .ui-dialog .ui-dialog-footer button {
+                                margin: 0px 0px !important;
+                            }
+                        </style>
+
+                        <p:dialog id="logDialog" header="Logs" visible="false" widgetVar="logDialogVar" width="1200" height="400" closable="true" modal="true">
+
+                            <p:dataTable binding="#{preIngresoBean.dataTable}"
+                                         id="logTable"
+                                         styleClass="table"
+                                         widgetVar="logTableVar"
+                                         var="log"
+                                         value="#{preIngresoBean.logs}"
+                                         emptyMessage="No hay logs asociados al corredor."
+                                         rows="30"
+                                         paginator="true"
+                                         sortOrder="descending"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                         rowsPerPageTemplate="30,60,100"
+                                         rowIndexVar="rowIndexVar"
+                                         rendered="#{preIngresoBean.showLogDatatable}">
+
+                                <p:column headerText="Poliza" filterBy="#{log.polizaNumero}" filterMatchMode="contains" width="90">
+                                    <h:outputText value="#{log.polizaNumero}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="Numgru" filterBy="#{log.grupo}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.grupo}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="Rut titular" filterBy="#{log.titular.rut}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.titular.rut}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="DV titular" filterBy="#{log.titular.dv}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.titular.dv2}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="Rut carga" filterBy="#{log.carga.rut}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.carga.rut}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="DV carga" filterBy="#{log.carga.dv}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.carga.dv2}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="Estado" filterBy="#{log.estado.descripcion}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.estado.descripcion}" styleClass="cell"/>
+                                </p:column>
+
+                                <p:column headerText="Fecha Inicio Vigencia" filterBy="#{log.fechaInicioVigencia.toGregorianCalendar().getTime()}" width="200" ariaHeaderText="Fecha">
+                                    <f:facet name="filter">
+                                        <h:inputHidden id="filter" />
+                                    </f:facet>
+                                    <f:facet name="header">
+                                        <span class="ui-column-title">Fecha Inicio</span>
+                                        <br />
+                                    </f:facet>
+                                    <h:outputText value="#{log.fechaInicioVigencia2}" id="col1" styleClass="dateTimeField cell">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Fecha Termino Vigencia" filterBy="#{log.fechaTerminoVigencia.toGregorianCalendar().getTime()}" width="200" ariaHeaderText="Fecha">
+                                    <f:facet name="filter">
+                                        <h:inputHidden id="filter2" />
+                                    </f:facet>
+                                    <f:facet name="header">
+                                        <span class="ui-column-title">Fecha Fin</span>
+                                        <br />
+                                    </f:facet>
+                                    <h:outputText value="#{log.fechaTerminoVigencia2}" id="col2" styleClass="dateTimeField cell">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Fecha Recepción CIA" filterBy="#{log.estado.descripcion}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.fechaRecepcionCorredor2}" styleClass="dateTimeField cell">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Fecha Estado" filterBy="#{log.estado.descripcion}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.fechaEstado2}" styleClass="dateTimeField cell">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Código de barra" filterBy="#{log.codigoBarra}" filterMatchMode="contains">
+                                    <h:outputText value="#{log.codigoBarra}" styleClass="cell"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                            <f:facet name="footer">
+                                <h:commandLink id="excel" value="Exportar a XLSX" styleClass="preingreso_dialog_buttonLeft">
+                                    <p:dataExporter type="xlsx" target="logTable" fileName="registroLog_#{logbookBean.currentDate}" />
+                                </h:commandLink>
+
+                                <p:commandButton value="Enviar a SFTP" action="#{preIngresoBean.sendToSFTP}" styleClass="preingreso_dialog_buttonRight" update="globalMessage" onsuccess="PF('logDialogVar').hide();"/>
+                            </f:facet>
+
+
+                        </p:dialog>
+
+                        <div class="ui-g-12 ui-xl-6">
+
+                            <p:panelGrid id="form-panel" columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:messages />
+
+                                <p:outputPanel>
+                                    <p:panelGrid columns="4" layout="grid" columnClasses="ui-md-2, ui-md-4, ui-md-2, ui-md-4" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="input-time-from"         value="Desde" style="font-weight: bold;" styleClass="Label" />
+                                        <p:calendar id="input-time-from"             value="#{preIngresoBean.from}" showOn="button" required="true" requiredMessage="Fecha desde: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-time-to"           value="Hasta" style="font-weight: bold" styleClass="Label"  />
+                                        <p:calendar id="input-time-to"               value="#{preIngresoBean.to}" showOn="button" required="true" requiredMessage="Fecha hasta: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-rut-multibroker"   value="Rut del multicorredor" style="font-weight: bold" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-rut-multibroker"      value="#{preIngresoBean.multiBrokerRut}" styleClass="Wid90" required="true" requiredMessage="Rut del multicorredor: El campo es obligatorio."/>
+
+                                        <p:outputLabel for="input-rut-broker"        value="Rut del corredor" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-rut-broker"           value="#{preIngresoBean.brokerRut}" styleClass="Wid90"/>
+
+                                        <p:outputLabel for="input-status"            value="Estado" styleClass="Wid20 Label" />
+                                        <p:selectOneMenu id="input-status"           value="#{preIngresoBean.status}" styleClass="Wid90">
+                                            <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="PENDIENTE"           itemValue="1"/>
+                                            <f:selectItem itemLabel="VALIDADO"           itemValue="3"/>
+                                            <f:selectItem itemLabel="CAMBIO NUEVO SET"          itemValue="7"/>
+                                            <f:selectItem itemLabel="TRASPASADO"          itemValue="8"/>
+                                            <f:selectItem itemLabel="TRASPASADO CON RECHAZO"          itemValue="9"/>
+                                            <f:selectItem itemLabel="ANULADO"          itemValue="10"/>
+                                            <f:selectItem itemLabel="TRASPASO MANUAL"          itemValue="11"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="input-username"          value="Usuario" styleClass="Wid20 Label" />
+                                        <p:inputText id="input-username"             value="#{preIngresoBean.username}" styleClass="Wid90"/>
+                                    </p:panelGrid>
+
+                                </p:outputPanel>
+
+                                <h:outputScript>$("#input-rut-multibroker").Rut();</h:outputScript>
+                                <h:outputScript>$("#input-rut-broker").Rut();</h:outputScript>
+
+                                <p:outputPanel>
+
+                                    <p:panelGrid columns="4"  layout="grid" styleClass="ui-panelgrid-blank">
+                                        <p:commandButton value="Ver" icon="fa fa-search" actionListener="#{preIngresoBean.showButton}" update="form-panel, logDialog" onsuccess="PF('logDialogVar').show();" styleClass="ui-priority-primary" process="@all" />
+                                    </p:panelGrid>
+                                </p:outputPanel>
+
+                            </p:panelGrid>
+
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
+             version="6">
+
+    <application-name>AplicacionLog</application-name>
+
+    <module id="Red_sensores_web">
+        <web>
+            <web-uri>Logs_Willis_Web-1.0-SNAPSHOT.war</web-uri>
+            <context-root>appLogs</context-root>
+        </web>
+    </module>
+
+    <module id="Red_sensores_persistence">
+        <ejb>Logs_Willis_EJB-1.0-SNAPSHOT.jar</ejb>
+    </module>
+
+    <library-directory>lib</library-directory>
+</application>

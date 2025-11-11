@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Logs_Willis_EAR" />
+        <module name="Logs_Willis_Web" />
+        <module name="abm-domain" />
+        <module name="abm-ear" />
+        <module name="abm-persistence" />
+        <module name="Logs_Willis_Persistence" />
+        <module name="abm-business" />
+        <module name="abm-web" />
+        <module name="Logs_Willis_EJB" />
+        <module name="abm-webservices" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

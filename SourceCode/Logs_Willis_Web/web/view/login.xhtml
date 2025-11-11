@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrador Log Proceso de Integracion</title>
+    <meta name="version" content="azure"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+</h:head>
+<h:body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="header2">
+                <div id="headerTop">
+                    <div id="headerLogo">
+                        <p class="logo"><img alt="a1" class="iconImage" src="#{request.contextPath}/resources/imagenes/logos/logo_metlife.png"/></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div style="width: 923px; text-align: center;">
+                <div class="contenido">
+
+                    <img alt="a2" src="#{request.contextPath}/resources/imagenes/Login/imagen_central_login.gif"/>
+
+                    <center>
+
+                        <h2>Administrador Log Proceso de Integracion</h2>
+
+                        <h:form action="authenticate" class="form-horizontal" id="loginform">
+                            <p:inputText type="hidden" name="urlFrom" value="${requestScope.urlFrom}"/>
+
+                            <table border="0" cellspacing="0" cellpadding="2">
+                                <tr>
+                                    <td rowspan="3" align="center" style="width:150px"><img alt="a4" src="#{request.contextPath}/resources/imagenes/Login/olvido_snoopy.gif" width="75" height="80" /></td>
+                                </tr>
+                                <tr>
+                                    <td width="57" height="40">
+                                        <img alt="a3" src="#{request.contextPath}/resources/imagenes/Login/rut.gif" width="52" height="16" style="margin-top:-5px"/>
+                                        <img alt="a5" src="#{request.contextPath}/resources/imagenes/Login/clave.gif" width="52" height="16" style="margin-top: 10px;"/>
+                                    </td>
+                                    <td width="84" align="center">
+                                        <p:inputText value="#{authenticationBean.username}" style="margin-top: -8px;"/>
+                                        <p:password value="#{authenticationBean.password}" style="margin-top: 6px;"/>
+
+
+                                    </td>
+                                    <td rowspan="2" width="163" height="70">
+
+                                        <h:commandButton action="#{authenticationBean.login}" image="/resources/imagenes/Login/ingresar.gif" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <h:panelGroup layout="block" id="error">
+                                <p:outputLabel value="#{authenticationBean.message}"></p:outputLabel>
+                            </h:panelGroup>
+
+                            <div style="margin:0 auto">
+                                <p>Version 0.9.16</p>
+                            </div>
+
+                        </h:form>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                    template="WEB-INF/template.xhtml">
+
+    <ui:define name="title">Bitácora de un proceso</ui:define>
+    <ui:define name="viewname">
+        <li><p:link outcome="/processes">Procesos</p:link></li>
+        <li>/ Logs de ejecución Proceso #{logbookBean.processId}</li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>Historial de ejecución</h1>
+
+                <div class="card" style="text-align:center">
+
+                    <style>
+                        body .ui-paginator .ui-paginator-rpp-label {
+                            display: none !important;
+                            float: none !important;
+                        }
+                    </style>
+
+                    <h:form id="logForm" prependId="false">
+                        <p:graphicImage name="images/page_not_found.png" library="metlife" style="width: 80px !important;"/>
+
+                        <h2 style="font-size: 32px;font-weight: bold;">Oops!</h2>
+
+                        <p>No existen registros de log asociados al corredor.</p>
+
+                        <p:panelGrid columns="1"  layout="grid" styleClass="ui-panelgrid-blank">
+                            <p:button value="Volver atrás" icon="fa fa-caret-left" action="users" styleClass="ui-priority-primary" outcome="processes" />
+                        </p:panelGrid>
+
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

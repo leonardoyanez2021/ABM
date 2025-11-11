@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name="es_locale.js" />
+    <h:outputScript library="js" name="calendar-localization.js" />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Consuta Log</title>
+</h:head>
+
+<h:body>
+
+    <div id="wrapper">
+
+        <ui:include src="header.xhtml" />
+
+        <div id="content">
+            <div style="width: 923px; text-align: center;">
+                <div class="contenido">
+
+                    <h:form id="form" prependId="false">
+
+                        <p:ajaxStatus style="position: fixed; bottom: 50px; right: 50px;">
+                            <f:facet name="default">
+                                <h:outputText value=""/>
+                            </f:facet>
+
+                            <f:facet name="start">
+                                <ui:fragment>
+                                <p:graphicImage id="ajaxLoader" value="/resources/imagenes/snoopy.gif" style="width: 50px; height: 87px;"/>
+                                <p style="color:#ffffff">Cargando ...</p>
+                                </ui:fragment>
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+
+                        <p:breadCrumb style="margin-bottom:30px">
+                            <p:menuitem value="Categories" url="#" />
+                            <p:menuitem value="Log" />
+                            <p:menuitem value="Log's Generados" url="#" />
+                        </p:breadCrumb>
+
+
+                        <p:dataTable id="tableLog"
+                                     var="logs"
+                                     widgetVar="clientsDT"
+                                     value="#{initProcess.logs}"
+                                     rows="30"
+                                     paginator="true"
+                                     sortOrder="descending"
+                                     paginatorPosition="top"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                     rowsPerPageTemplate="30,60,100"
+                                     lazy="true">
+
+                            <f:facet name="{Exporters}">
+                                <ui:fragment>
+                                <h:commandLink>
+                                    <img src="#{request.contextPath}/resources/imagenes/xls.png" width="24" height="27" style="margin-bottom: -8px;" alt="xls"/>
+                                    <p:dataExporter type="xlsx" target="tableLog" fileName="registroLog" />
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <img src="#{request.contextPath}/resources/imagenes/csv.png" width="24" height="27" style="margin-bottom: -8px;" alt="csv"/>
+                                    <p:dataExporter type="csv" target="tableLog" fileName="registroLog" />
+                                </h:commandLink>
+
+                                <p:commandButton value="Actualizar" action="#{initProcess.refreshTable}" update=":form" style="margin-left:15px" icon="ui-icon-arrowrefresh-1-e"/>
+                                </ui:fragment>
+                            </f:facet>
+
+
+                            <p:column headerText="Fecha" filterBy="#{logs.fecha}" width="130" >
+                                <f:facet name="filter">
+                                    <h:inputHidden id="filter2" />
+                                </f:facet>
+                                <f:facet name="header">
+                                    <ui:fragment>
+                                    <span class="ui-column-title">Fecha</span>
+                                    <br />
+                                    <p:calendar id="from2" pattern="dd/MM/yyyy HH:mm:ss" placeholder="Desde" styleClass="calendarFilterLogView" locale="es">
+                                        <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter2')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from2')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to2')}_input'))[0].value" oncomplete="PF('clientsDT').filter()" />
+                                    </p:calendar>
+                                    <br />
+                                    <p:calendar id="to2" pattern="dd/MM/yyyy HH:mm:ss" placeholder="Hasta" styleClass="calendarFilterLogView" locale="es">
+                                        <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter2')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from2')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to2')}_input'))[0].value" oncomplete="PF('clientsDT').filter()" />
+                                    </p:calendar>
+                                    </ui:fragment>
+                                </f:facet>
+                                <h:outputText value="#{logs.fecha}" styleClass="dateTimeField">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Rut Corredor" width="105" filterBy="#{logs.rutCorredor}" filterMatchMode="contains">
+                                <h:outputText value="#{logs.rutCorredor}" />
+                            </p:column>
+
+                            <p:column headerText="Lote" width="105" filterBy="#{logs.lote}"  filterMatchMode="contains">
+                                <h:outputText value="#{logs.lote}" />
+                            </p:column>
+
+                            <p:column headerText="Tipo"  width="105" filterBy="#{logs.tipo}" filterMatchMode="contains">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('clientsDT').filter()" style="width: 100px">
+                                        <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItem itemValue="INFO" itemLabel="INFO"/>
+                                        <f:selectItem itemValue="ERROR" itemLabel="ERROR"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{logs.tipo}" />
+                            </p:column>
+
+                            <p:column headerText="Proceso" width="105" filterBy="#{logs.proceso}" filterMatchMode="contains" >
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('clientsDT').filter()" style="width: 100px">
+                                        <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItem itemValue="EJECUCION GENERAL" itemLabel="EJECUCION GENERAL"/>
+                                        <f:selectItem itemValue="PIPE SPONSOR" itemLabel="PIPE SPONSOR"/>
+                                        <f:selectItem itemValue="SFTP" itemLabel="SFTP"/>
+                                        <f:selectItem itemValue="FILENET" itemLabel="FILENET"/>
+                                        <f:selectItem itemValue="wf_001_ALTA_TITULAR" itemLabel="wf_001_ALTA_TITULAR"/>
+                                        <f:selectItem itemValue="wf_002_ALTA_CARGAS" itemLabel="wf_002_ALTA_CARGAS"/>
+                                        <f:selectItem itemValue="wf_003_BAJA_TITULAR" itemLabel="wf_003_BAJA_TITULAR"/>
+                                        <f:selectItem itemValue="wf_004_BAJA_CARGAS" itemLabel="wf_004_BAJA_CARGAS"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{logs.proceso}" />
+                            </p:column>
+
+                            <p:column headerText="Mensaje">
+                                <h:outputText value="#{logs.mensaje}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+
+                    </h:form>
+                </div> <!-- contenido -->
+            </div> <!-- resize div -->
+        </div> <!-- content -->
+
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

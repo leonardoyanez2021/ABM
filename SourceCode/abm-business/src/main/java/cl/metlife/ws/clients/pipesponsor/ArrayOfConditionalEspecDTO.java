@@ -1,0 +1,69 @@
+
+package cl.metlife.ws.clients.pipesponsor;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Clase Java para ArrayOfConditionalEspecDTO complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
+ * <pre>
+ * &lt;complexType name="ArrayOfConditionalEspecDTO">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="ConditionalEspecDTO" type="{http://schemas.datacontract.org/2004/07/SmartGear.MetLife.Srp.Application.MainBoundedContext.DTO}ConditionalEspecDTO" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ArrayOfConditionalEspecDTO", namespace = "http://schemas.datacontract.org/2004/07/SmartGear.MetLife.Srp.Application.MainBoundedContext.DTO", propOrder = {
+    "conditionalEspecDTO"
+})
+public class ArrayOfConditionalEspecDTO {
+
+    @XmlElement(name = "ConditionalEspecDTO", nillable = true)
+    protected List<ConditionalEspecDTO> conditionalEspecDTO;
+
+    /**
+     * Gets the value of the conditionalEspecDTO property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the conditionalEspecDTO property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getConditionalEspecDTO().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ConditionalEspecDTO }
+     * 
+     * 
+     */
+    public List<ConditionalEspecDTO> getConditionalEspecDTO() {
+        if (conditionalEspecDTO == null) {
+            conditionalEspecDTO = new ArrayList<ConditionalEspecDTO>();
+        }
+        return this.conditionalEspecDTO;
+    }
+
+}

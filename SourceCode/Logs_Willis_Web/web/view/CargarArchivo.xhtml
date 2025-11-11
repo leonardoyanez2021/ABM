@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name='es_locale.js' />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Carga en FileNet</title>
+</h:head>
+<h:body>
+    <div id="wrapper">
+        <ui:include src="header.xhtml" />
+        <div id="content">
+            <div style="width: 923px; text-align: center;">
+                <div class="contenido">
+                    <h:form id="form" prependId="false">
+                        <p:breadCrumb>
+                            <p:menuitem value="Categories" url="#" />
+                            <p:menuitem value="Log" />
+                            <p:menuitem value="Cargar en FileNet" url="#" />
+                        </p:breadCrumb>
+
+                        <p:ajaxStatus style="position: fixed; bottom: 50px; right: 50px;">
+                            <f:facet name="default">
+                                <h:outputText value=""/>
+                            </f:facet>
+
+                            <f:facet name="start">
+                                <ui:fragment>
+                                <p:graphicImage id="ajaxLoader" value="/resources/imagenes/snoopy.gif" style="width: 50px; height: 87px;"/>
+                                <p style="color:#ffffff">Cargando ...</p>
+                                </ui:fragment>
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                        <h3 style="padding-bottom: 14px; border-bottom: 1px solid #ddd; margin-top:30px">
+                            <h:outputLabel value="Corredor" />
+                        </h3>
+
+                        <p:panelGrid columns="1" layout="grid" style="border:1px !important; background:none;" styleClass="FormContent">
+                            <p:selectOneRadio id="grid1" value="#{uploadFilenetBean.rutCorredor}" layout="grid" columns="10" style="margin: 0 auto">
+                                <f:selectItems value="#{uploadFilenetBean.listCorredor}" var="log" itemLabel="#{log}" itemValue="#{log}" />
+                            </p:selectOneRadio>
+                        </p:panelGrid>
+
+                        <h3 style="padding-bottom: 14px; border-bottom: 1px solid #ddd; margin-top:25px">
+                            <h:outputLabel value="Archivos PDF" />
+                        </h3>
+
+                        <p:pickList id="archivos" value="#{uploadFilenetBean.archivosPdf}" showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" var="file" itemLabel="#{file}" itemValue="#{file}" style="margin: 0 auto;">
+                            <f:facet name="sourceCaption">Carpeta</f:facet>
+                            <f:facet name="targetCaption">Para cargar</f:facet>
+                        </p:pickList>
+
+                        <p:commandButton value="Cargar" icon="ui-icon-arrowreturnthick-1-n" action="#{uploadFilenetBean.sendFileNet}" update="form" style="margin-top:20px"/>
+                    </h:form>
+                </div>
+            </div> <!-- resize div -->
+        </div> <!-- content -->
+
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

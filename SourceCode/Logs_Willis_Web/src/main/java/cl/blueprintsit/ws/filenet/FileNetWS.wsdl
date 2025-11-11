@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="FileNetWS" targetNamespace="http://filenet.ws.metlife.cl/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://filenet.ws.metlife.cl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://filenet.ws.metlife.cl/" schemaLocation="FileNetWS_schema1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="searchDocumentVersions">
+    <part name="parameters" element="tns:searchDocumentVersions">
+    </part>
+  </message>
+  <message name="isConnectedResponse">
+    <part name="parameters" element="tns:isConnectedResponse">
+    </part>
+  </message>
+  <message name="searchDocuments">
+    <part name="parameters" element="tns:searchDocuments">
+    </part>
+  </message>
+  <message name="putDocumentResponse">
+    <part name="parameters" element="tns:putDocumentResponse">
+    </part>
+  </message>
+  <message name="deleteDocument">
+    <part name="parameters" element="tns:deleteDocument">
+    </part>
+  </message>
+  <message name="isConnected">
+    <part name="parameters" element="tns:isConnected">
+    </part>
+  </message>
+  <message name="searchDocumentVersionsResponse">
+    <part name="parameters" element="tns:searchDocumentVersionsResponse">
+    </part>
+  </message>
+  <message name="searchDocumentsResponse">
+    <part name="parameters" element="tns:searchDocumentsResponse">
+    </part>
+  </message>
+  <message name="getDocument">
+    <part name="parameters" element="tns:getDocument">
+    </part>
+  </message>
+  <message name="updateDocumentResponse">
+    <part name="parameters" element="tns:updateDocumentResponse">
+    </part>
+  </message>
+  <message name="getMetadataResponse">
+    <part name="parameters" element="tns:getMetadataResponse">
+    </part>
+  </message>
+  <message name="putDocument">
+    <part name="parameters" element="tns:putDocument">
+    </part>
+  </message>
+  <message name="deleteDocumentResponse">
+    <part name="parameters" element="tns:deleteDocumentResponse">
+    </part>
+  </message>
+  <message name="getMetadata">
+    <part name="parameters" element="tns:getMetadata">
+    </part>
+  </message>
+  <message name="getDocumentResponse">
+    <part name="parameters" element="tns:getDocumentResponse">
+    </part>
+  </message>
+  <message name="updateDocument">
+    <part name="parameters" element="tns:updateDocument">
+    </part>
+  </message>
+  <portType name="ConectorFileNetWSI">
+    <operation name="getDocument">
+      <input message="tns:getDocument">
+    </input>
+      <output message="tns:getDocumentResponse">
+    </output>
+    </operation>
+    <operation name="getMetadata">
+      <input message="tns:getMetadata">
+    </input>
+      <output message="tns:getMetadataResponse">
+    </output>
+    </operation>
+    <operation name="putDocument">
+      <input message="tns:putDocument">
+    </input>
+      <output message="tns:putDocumentResponse">
+    </output>
+    </operation>
+    <operation name="updateDocument">
+      <input message="tns:updateDocument">
+    </input>
+      <output message="tns:updateDocumentResponse">
+    </output>
+    </operation>
+    <operation name="deleteDocument">
+      <input message="tns:deleteDocument">
+    </input>
+      <output message="tns:deleteDocumentResponse">
+    </output>
+    </operation>
+    <operation name="searchDocuments">
+      <input message="tns:searchDocuments">
+    </input>
+      <output message="tns:searchDocumentsResponse">
+    </output>
+    </operation>
+    <operation name="searchDocumentVersions">
+      <input message="tns:searchDocumentVersions">
+    </input>
+      <output message="tns:searchDocumentVersionsResponse">
+    </output>
+    </operation>
+    <operation name="isConnected">
+      <input message="tns:isConnected">
+    </input>
+      <output message="tns:isConnectedResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="FilenetBinding" type="tns:ConectorFileNetWSI">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getDocument">
+      <soap:operation soapAction="getDocumentAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getMetadata">
+      <soap:operation soapAction="getMetadataAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="putDocument">
+      <soap:operation soapAction="putDocumentAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="updateDocument">
+      <soap:operation soapAction="updateDocumentAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="deleteDocument">
+      <soap:operation soapAction="deleteDocumentAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="searchDocuments">
+      <soap:operation soapAction="searchDocumentsAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="searchDocumentVersions">
+      <soap:operation soapAction="searchDocumentVersionsAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="isConnected">
+      <soap:operation soapAction="isConnectedAction"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="FileNetWS">
+    <port name="Filenet" binding="tns:FilenetBinding">
+      <soap:address location="http://mlfprdibmfnet.alico.corp:9080/WsFileNet/FileNetWS"/>
+    </port>
+  </service>
+</definitions>

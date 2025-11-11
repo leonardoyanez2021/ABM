@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name="es_locale.js" />
+    <h:outputScript library="js" name="calendar-localization.js" />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Cambio Stock</title>
+</h:head>
+
+<h:body>
+    <div id="wrapper">
+
+        <ui:include src="header.xhtml" />
+
+        <div id="content">
+            <div style="width: 923px; text-align: center;">
+                <div class="contenido">
+
+                    <h:form id="formPage">
+
+                        <center>
+
+                            <h2>Cambio de Stock</h2>
+
+                            <div class="polig" >
+
+                                <p:outputLabel style="color: #007cc2">Nuevo</p:outputLabel>
+                                <p:messages closable="true" autoUpdate="true"/>
+                                <br></br>
+                                <br></br>
+
+                                <div class="input-nuevo">
+
+                                    <p:inputText placeholder="Folio" style="width: 70px" styleClass="input-nuevo" id="folio" value="#{folioBean.folioDAO.folio}" required="true" pattern="[0-9]+"></p:inputText>
+                                    <p:inputText placeholder="Poliza" style="width: 100px" styleClass="input-nuevo" id="poliza" value="#{folioBean.folioDAO.poliza}" required="true" pattern="[0-9]+"></p:inputText>
+                                    <p:inputText placeholder="Rut Cobranza" style="width: 100px" styleClass="input-nuevo" id="rut_cobranza" value="#{folioBean.folioDAO.rut_cobranza}" required="true" pattern="[0-9]+"></p:inputText>
+                                    <p:inputText placeholder="DV" style="width: 100px" styleClass="input-nuevo" id="dv_cobranza" value="#{folioBean.folioDAO.dv_cobranza}" required="true" pattern="[0-9]+"></p:inputText>
+                                    <p:inputText placeholder="Rut Contrantante" style="width: 100px" id="rut_contratante" value="#{folioBean.folioDAO.rut_contratante}" styleClass="input-nuevo"></p:inputText>
+                                    <p:inputText placeholder="DV" style="width: 100px" styleClass="input-nuevo" id="dv_contratante" value="#{folioBean.folioDAO.dv_contratante}" required="true" pattern="[0-9]+"></p:inputText>
+                                    <p:inputText placeholder="Producto Corredora" style="width: 130px" styleClass="input-nuevo" id="cod_prod" value="#{folioBean.folioDAO.cod_prod}" required="true" pattern="[0-9]+"></p:inputText>
+                                    <p:inputText placeholder="Descripción Producto" style="width: 100px" styleClass="input-nuevo" id="desc_prod" value="#{folioBean.folioDAO.desc_prod}" required="true" disabled="true"></p:inputText>
+
+                                </div>
+
+
+                                <p>
+                                    <p:commandButton  value="Agregar" actionListener="#{folioBean.guardarFolio}" icon="ui-icon-disk"></p:commandButton>
+                                </p>
+                            </div>
+
+
+                            <br></br>
+
+
+                            <div class="polig2" >
+
+                                <p:outputLabel style="color: #007cc2">Modificar</p:outputLabel>
+                                <br></br>
+                                <br></br>
+                                <div class="input-nuevo">
+
+                                    <p:inputText style="margin-right: 50px" value="#{folioBean.folioDAO.folio}"></p:inputText>
+                                    <p:commandButton update="" value="Buscar Folio" actionListener=""></p:commandButton>
+                                </div>
+                                <br></br>
+                                <br></br>
+                                <h:form id="formActualiza">
+
+                                    <div class="input-nuevo">
+
+                                            <p:messages closable="true" autoUpdate="true"/>
+                                            <p:dataTable value="" var="f" paginator="true" rows="3" editable="true" filteredValue="" emptyMessage="Sin coincidenciasS">
+                                                <p:column headerText="Folio" filterBy="#{f.folio}" filterMatchMode="contains">
+                                                    <h:outputText value="#{f.folio}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Polizas">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{f.poliza}"></h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText value="#{folioBean.poliza}"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:column headerText="Cod. Producto">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{f.cod_prod}"></h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText value="#{folioBean.cod_prod}"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:column headerText="Desc. Prod">
+                                                    <h:outputText value="#{f.desc_prod}"></h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Rut Cobranza">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{f.rut_cobranza}"></h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText value="#{folioBean.rut_cobranza}"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:column headerText="DV">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{f.dv_cobranza}"></h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText value="#{folioBean.dv_cobranza}"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:column headerText="Rut Contratante">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{f.rut_contratante}"></h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText value="#{folioBean.rut_contratante}"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:column headerText="DV">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{f.dv_contratante}"></h:outputText>
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText value="#{folioBean.dv_contratante}"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:rowEditor/>
+                                                </p:column>
+                                            </p:dataTable>
+
+                                    </div>
+
+                                    <p>
+                                        <p:commandButton update="" value="Modificar" actionListener="#{folioBean.modificarFolio}" icon="ui-icon-disk"></p:commandButton>
+                                    </p>
+                                </h:form>
+
+
+                                <div class="input-nuevo" align="left">
+
+                                    <p:outputLabel value="Carga modificación Masiva" style="color: #007cc2" styleClass="label2"></p:outputLabel>
+                                    <br></br>
+                                    <p:inputText placeholder="archivo.xlsx" style="margin-right: 50px"></p:inputText>
+                                    <p:commandButton value="Examinar" style="margin-right: 50px"></p:commandButton>
+                                    <p:commandButton value="Cargar"></p:commandButton>
+
+                                </div>
+                            </div>
+
+                            <br></br>
+
+
+                            <div class="polig3" >
+
+
+                                <p:outputLabel style="color: #007cc2">Eliminar</p:outputLabel>
+                                <br></br>
+                                <br></br>
+                                <div class="input-nuevo">
+
+                                    <p:inputText style="margin-right: 50px" value="#{folioBean.folioDAO.folio}"></p:inputText>
+                                    <p:commandButton update="" value="Buscar Folio" actionListener=""></p:commandButton>
+                                </div>
+                                <br></br>
+                                <br></br>
+
+
+                                <p:growl id="msg"/>
+                                <div class="input-nuevo">
+
+                                        <p:dataTable value="#{folioBean.lista}" var="f" paginator="true" rows="3">
+                                            <p:column>
+                                                <h:selectBooleanCheckbox value="#{f.selected}"/>
+                                            </p:column>
+                                            <p:column headerText="Folio">
+                                                <h:outputText value="#{f.folio}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Polizas">
+                                                <h:outputText value="#{f.poliza}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Cod. Producto">
+                                                <h:outputText value="#{f.cod_prod}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Desc. Prod">
+                                                <h:outputText value=""></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Rut Cobranza">
+                                                <h:outputText value="#{f.rut_cobranza}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="DV">
+                                                <h:outputText value="#{f.dv_cobranza}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Rut Contratante">
+                                                <h:outputText value="#{f.rut_contratante}"></h:outputText>
+                                            </p:column>
+                                            <p:column headerText="DV">
+                                                <h:outputText value="#{f.dv_contratante}"></h:outputText>
+                                            </p:column>
+                                        </p:dataTable>
+
+                                </div>
+
+                                <p>
+                                    <p:commandButton  value="Eliminar" actionListener="#{folioBean.eliminar()}"
+                                                      update="" icon="ui-icon-trash">
+                                        <p:confirm message="¿Seguro de eliminar?" header="aviso" icon="ui-icon-alert"/>
+                                        <p:confirmDialog global="true">
+                                            <p:commandButton value="Si" type="button" icon="ui-icon-check"
+                                                             styleClass="ui-confirmdialog-yes"/>
+                                        </p:confirmDialog>
+                                        <p:confirmDialog global="true">
+                                            <p:commandButton value="No" type="button" icon="ui-icon-close"
+                                                             styleClass="ui-confirmdialog-no"/>
+                                        </p:confirmDialog>
+
+                                    </p:commandButton>
+
+                                </p>
+
+
+
+
+
+                            </div>
+
+
+                        </center>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name='es_locale.js' />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Estado proceso</title>
+</h:head>
+<h:body>
+
+    <div id="wrapper">
+        <ui:include src="header.xhtml" />
+
+        <div id="content">
+            <div style="width: 923px; text-align: center;">
+                <div class="contenido">
+                    <h:form id="form" prependId="false">
+                        <p:breadCrumb style="margin-bottom:30px">
+                            <p:menuitem value="Categories" url="#" />
+                            <p:menuitem value="Log" />
+                            <p:menuitem value="Estado Proceso" url="#" />
+                        </p:breadCrumb>
+
+                        <p:dataTable rows="10" id="instancias" var="estado"
+                                     value="#{estadoProcesoBean.estadoProcesos}" lazy="true" emptyMessage="No hay datos de procesos">
+
+                            <p:column headerText="ID">
+                                <h:outputText value="#{estado.id}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre"  >
+                                <h:outputText value="#{estado.nombre}"/>
+                            </p:column>
+
+                            <p:column headerText="Estado"  >
+                                <h:outputText value="#{estado.estado}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+                </div> <!-- contenido -->
+            </div> <!-- resize div -->
+        </div> <!-- content -->
+
+        <div id="footer"></div>
+    </div>
+</h:body>
+</html>

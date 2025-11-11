@@ -1,0 +1,69 @@
+
+package cl.metlife.ws.clients.pipesponsor;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Clase Java para ArrayOfOutputColumnDTO complex type.
+ * 
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * 
+ * <pre>
+ * &lt;complexType name="ArrayOfOutputColumnDTO">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="OutputColumnDTO" type="{http://schemas.datacontract.org/2004/07/SmartGear.MetLife.Srp.Application.MainBoundedContext.DTO}OutputColumnDTO" maxOccurs="unbounded" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ArrayOfOutputColumnDTO", namespace = "http://schemas.datacontract.org/2004/07/SmartGear.MetLife.Srp.Application.MainBoundedContext.DTO", propOrder = {
+    "outputColumnDTO"
+})
+public class ArrayOfOutputColumnDTO {
+
+    @XmlElement(name = "OutputColumnDTO", nillable = true)
+    protected List<OutputColumnDTO> outputColumnDTO;
+
+    /**
+     * Gets the value of the outputColumnDTO property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the outputColumnDTO property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getOutputColumnDTO().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link OutputColumnDTO }
+     * 
+     * 
+     */
+    public List<OutputColumnDTO> getOutputColumnDTO() {
+        if (outputColumnDTO == null) {
+            outputColumnDTO = new ArrayList<OutputColumnDTO>();
+        }
+        return this.outputColumnDTO;
+    }
+
+}

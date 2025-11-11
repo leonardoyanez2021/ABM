@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="preIngreso">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+    <jta-data-source>jdbc/logPreIngreso</jta-data-source>
+
+    <class>cl.blueprintsit.entity.Logs</class>
+    <class>cl.blueprintsit.entity.ConfigurationLog</class>
+    <class>cl.blueprintsit.entity.EstadoProceso</class>
+
+
+</persistence-unit>
+
+    <persistence-unit name="ingresoHomologacion">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <jta-data-source>jdbc/logIngresoHomologacion</jta-data-source>
+
+
+        <class>cl.blueprintsit.entity.Homologacion</class>
+        <class>cl.blueprintsit.entity.PacdbchHomologacionEntity</class>
+        <class>cl.blueprintsit.entity.EtlScsvidaTablapasoEntity</class>
+        <class>cl.blueprintsit.entity.VistashebaEntity</class>
+        <properties>
+            <property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@10.77.208.33:1532:METRCSD"/>
+            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

@@ -1,0 +1,129 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">
+
+    <div id="header2">
+        <div id="sessionInfo" >
+            Usuario: <h:outputText value="#{authenticationBean.loggedUser.name}" rendered="#{authenticationBean.loggedIn}" />
+            <p:commandLink actionListener="#{authenticationBean.logout()}" value="(Salir)"/>
+        </div>
+
+        <div id="headerTop">
+            <div id="headerLogo">
+                <p class="logo"><img class="iconImage" src="#{request.contextPath}/resources/imagenes/logos/logo_metlife.png"/></p>
+            </div>
+        </div>
+
+        <h:form id="header_form">
+            <!-- nav menu -->
+            <div id="navMenu">
+                <ul class="first">
+                    <li class="top"><p:commandLink onclick="displayDiv1()" >Log</p:commandLink></li>
+                    <li class="top"><p:commandLink onclick="displayDiv2()" >Configuración</p:commandLink></li>
+                    <li class="top"><p:commandLink onclick="displayDiv3()" >Cambio Stock</p:commandLink></li>
+                    <li class="top"><p:commandLink onclick="displayDiv4()" >Cobranza</p:commandLink></li>
+                    <li class="top"><p:commandLink onclick="displayDiv5()" >Unificación de Devengo</p:commandLink></li>
+                    <li class="top"><p:commandLink onclick="displayDiv6()" >Mantenedor Tabla de Homologación</p:commandLink></li>
+
+                </ul>
+
+                <script type="text/javascript">
+                    function displayDiv1(){
+                        document.getElementById('menu1').style.display = 'block';
+                        document.getElementById('menu2').style.display = 'none';
+                        document.getElementById('menu3').style.display = 'none';
+                        document.getElementById('menu4').style.display = 'none';
+                        document.getElementById('menu5').style.display = 'none';
+                        document.getElementById('menu6').style.display = 'none';
+
+                    }
+                    function displayDiv2(){
+                        document.getElementById('menu1').style.display = 'none';
+                        document.getElementById('menu2').style.display = 'block';
+                        document.getElementById('menu3').style.display = 'none';
+                        document.getElementById('menu4').style.display = 'none';
+                        document.getElementById('menu5').style.display = 'none';
+                        document.getElementById('menu6').style.display = 'none';
+                    }
+                    function displayDiv3(){
+                        document.getElementById('menu1').style.display = 'none';
+                        document.getElementById('menu2').style.display = 'none';
+                        document.getElementById('menu3').style.display = 'block';
+                        document.getElementById('menu4').style.display = 'none';
+                        document.getElementById('menu5').style.display = 'none';
+                        document.getElementById('menu6').style.display = 'none';
+                    }
+                    function displayDiv4(){
+                        document.getElementById('menu1').style.display = 'none';
+                        document.getElementById('menu2').style.display = 'none';
+                        document.getElementById('menu3').style.display = 'none';
+                        document.getElementById('menu4').style.display = 'block';
+                        document.getElementById('menu5').style.display = 'none';
+                        document.getElementById('menu6').style.display = 'none';
+                    }
+                    function displayDiv5(){
+                        document.getElementById('menu1').style.display = 'none';
+                        document.getElementById('menu2').style.display = 'none';
+                        document.getElementById('menu3').style.display = 'none';
+                        document.getElementById('menu4').style.display = 'none';
+                        document.getElementById('menu5').style.display = 'block';
+                        document.getElementById('menu6').style.display = 'none';
+                    }
+                    function displayDiv6(){
+                        document.getElementById('menu1').style.display = 'none';
+                        document.getElementById('menu2').style.display = 'none';
+                        document.getElementById('menu3').style.display = 'none';
+                        document.getElementById('menu4').style.display = 'none';
+                        document.getElementById('menu5').style.display = 'none';
+                        document.getElementById('menu6').style.display = 'block';
+                    }
+                </script>
+
+            </div>
+
+            <div class="menu_metlife" id="menu1" style="display: none">
+                <ul style="list-style: none;">
+                    <li class="li_menu_metlife"><a style="font-size:14px; font-weight: bold" href="#{request.contextPath}/view/ConsultaLog.xhtml">Log's generados</a></li>
+                </ul>
+            </div>
+            <div class="menu_metlife" id="menu2" style="display: none">
+                <ul style="list-style: none;">
+                    <li class="li_menu_metlife"><a style="font-size:14px; font-weight: bold" href="#{request.contextPath}/view/Configuracion.xhtml">Detalle</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_metlife" id="menu3" style="display: none">
+                <ul style="list-style: none;">
+                    <li class="li_menu_metlife"><a style="font-size:14px; font-weight: bold" href="#{request.contextPath}/view/CambioStock.xhtml">Cambiar Stock</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_metlife" id="menu4" style="display: none">
+                <ul style="list-style: none;">
+                    <li class="li_menu_metlife"><a style="font-size:14px; font-weight: bold" href="#{request.contextPath}/view/Cobranza.xhtml">Cobranza</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_metlife" id="menu5" style="display: none">
+                <ul style="list-style: none;">
+                    <li class="li_menu_metlife"><a style="font-size:14px; font-weight: bold" href="#{request.contextPath}/view/UnificacionDevengo.xhtml">Unificación de Devengo</a></li>
+                </ul>
+            </div>
+
+            <div class="menu_metlife" id="menu6" style="display: none">
+                <ul style="list-style: none;">
+                    <li class="li_menu_metlife"><a style="font-size:14px; font-weight: bold" href="#{request.contextPath}/view/MantenedorTablaHomologacion.xhtml">Mantenedor de Tabla Homologación</a></li>
+                </ul>
+            </div>
+
+
+
+
+        </h:form>
+
+        <!-- FIN: Subir XML dialog -->
+
+    </div>
+</div>

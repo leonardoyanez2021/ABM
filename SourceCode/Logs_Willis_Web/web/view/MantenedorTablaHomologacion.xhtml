@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:tr="http://java.sun.com/jsp/jstl/core"
+      xmlns:td="http://java.sun.com/jsf/html">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputScript library="js" name="es_locale.js" />
+    <h:outputScript library="js" name="calendar-localization.js" />
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/css_global.css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/imagenes/favicon.ico"/>
+    <title>Mantenedor Tabla de Homologación</title>
+</h:head>
+
+<div id="wrapper">
+
+    <ui:include src="header.xhtml" />
+
+    <div id="content">
+        <div style="width: 923px; text-align: center;">
+            <div class="contenido">
+
+                        <h:messages globalOnly="true" />
+
+                            <h:form id="form1">
+
+                                <p:growl id="msj" autoUpdate="true"/>
+
+                                <h2>Mantenedor Homologación Producto Riesgo</h2>
+
+                                    <div class="polig2">
+
+                                        <p:outputLabel style="color: #007cc2">Nuevo</p:outputLabel>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+
+
+                                        <p align="left" style="margin-left: 40px">
+                                            <p:inputText required="true" id="CódigoProducto" placeholder="Código Producto" value="#{initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto}" style="width: 150px" styleClass="input-nuevo"></p:inputText>
+                                            <p:inputText placeholder="Descripción de Producto" value="#{initProcess.homologacionDAO.pacdbchHomologacionEntity.descProducto}" style="width: 300px" styleClass="input-nuevo"></p:inputText>
+                                            <br></br>
+                                            <br></br>
+                                            <p:inputText required="true" id="TipoRiesgo" placeholder="Tipo Riesgo" value="#{initProcess.homologacionDAO.pacdbchHomologacionEntity.tipoRiesgo}" style="width: 150px" styleClass="input-nuevo"></p:inputText>
+                                            <p:inputText placeholder="Descripcion de Riesgo" value="#{initProcess.homologacionDAO.pacdbchHomologacionEntity.descRiesgo}" style="width: 300px" styleClass="input-nuevo"></p:inputText>
+                                        </p>
+                                            <br></br>
+                                            <br></br>
+
+
+                                        <p>
+                                        <p:commandButton value="Insertar" update="form1" actionListener="#{initProcess.homologacionDAO.insertar(initProcess.homologacionDAO.pacdbchHomologacionEntity)}" icon="ui-icon-disk">
+                                            <p:confirm message="Seguro que desea insertar estos datos?" header="Aviso" icon="ui-icon-alert"></p:confirm>
+                                        </p:commandButton>
+                                        </p>
+
+                                    </div>
+                            </h:form>
+
+                                            <br></br>
+                                            <br></br>
+
+                            <h:form id="form2">
+
+                                <p:growl id="msj1" autoUpdate="true"/>
+                                <div class="polig2" style="width: auto">
+
+                                    <p:outputLabel style="color: #007cc2">Modificar</p:outputLabel>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                        <div class="input-nuevo">
+
+                                            <p:inputText style="margin-right: 50px" required="true" value="#{initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto}"></p:inputText>
+                                            <p:commandButton update="dataModificar" value="Buscar" actionListener="#{initProcess.homologacionDAO.getByCodProducto(initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto)}"></p:commandButton>
+                                        </div>
+                                            <br></br>
+                                            <br></br>
+
+                                    <div class="input-nuevo">
+                                        <p:dataTable styleClass="dataTable" id="dataModificar" editable="true" var="dato" value="#{initProcess.homologacionDAO.getByCodProducto(initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto)}" lazy="true" emptyMessage="No hay datos de homologacion">
+
+                                            <p:ajax event="rowEdit" listener="#{initProcess.homologacionDAO.actualizarHomologacion}" update=":form2:msj1"/>
+                                            <p:column headerText="Código Producto" style="width: 70px">
+                                                <h:outputText value="#{dato.codProducto}"></h:outputText>
+                                            </p:column>
+
+                                            <p:column headerText="Descripción">
+                                                <h:outputText value="#{dato.descProducto}"></h:outputText>
+                                            </p:column>
+                                        </p:dataTable>
+                                            <br></br>
+                                            <br></br>
+                                        <p>
+                                            <p:commandButton value="Actualizar" icon="ui-icon-pencil"></p:commandButton>
+                                        </p>
+
+                                    </div>
+
+
+                                </div>
+                            </h:form>
+
+                                        <br></br>
+                                        <br></br>
+
+
+                            <h:form id="form3">
+                                <p:growl id="msj2" autoUpdate="true"/>
+                                <div class="polig2" style="width: auto">
+
+                                    <p:outputLabel style="color: #007cc2">Eliminar</p:outputLabel>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                        <div class="input-nuevo">
+                                            <p:inputText style="margin-right: 50px" required="true" value="#{initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto}"></p:inputText>
+                                            <p:commandButton update="dataEliminar" value="Buscar" actionListener="#{initProcess.homologacionDAO.getByCodProducto(initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto)}"></p:commandButton>
+
+                                        </div>
+                                            <br></br>
+                                            <br></br>
+
+
+                                        <div class="input-nuevo">
+                                            <p:dataTable styleClass="dataTable" id="dataEliminar" var="dato"
+                                                         value="#{initProcess.homologacionDAO.getByCodProducto(initProcess.homologacionDAO.pacdbchHomologacionEntity.codProducto)}"
+                                                         selection="#{initProcess.homologacionDAO.homologacionCheck}"
+                                                         rowKey="#{dato.codProducto}"
+                                                         lazy="true"
+                                                         emptyMessage="No hay datos de homologacion">
+
+
+                                                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                                <p:column headerText="Código Producto" style="width: 70px">
+                                                    <h:outputText value="#{dato.codProducto}"></h:outputText>
+                                                </p:column>
+
+                                                <p:column headerText="Descripción">
+                                                    <h:outputText value="#{dato.descProducto}"></h:outputText>
+                                                </p:column>
+
+                                                <p:column headerText="Tipo Riesgo" style="width: 100px">
+                                                    <h:outputText value="#{dato.tipoRiesgo}"></h:outputText>
+                                                </p:column>
+
+                                            </p:dataTable>
+                                                <br></br>
+                                                <br></br>
+
+                                                <p>
+                                                    <p:commandButton process="dataEliminar" value="Eliminar" actionListener="#{initProcess.homologacionDAO.eliminarHomologacion(initProcess.homologacionDAO.homologacionCheck)}"
+                                                     update="form3" icon="ui-icon-trash">
+                                                    <p:confirm message="Seguro que desea eliminar estos datos?" header="Aviso" icon="ui-icon-alert"></p:confirm> </p:commandButton>
+                                                </p>
+                                                <p:confirmDialog global="true">
+                                                    <p:commandButton value="SI" type="button" icon="ui-icon-check"
+                                                                     styleClass="ui-confirmdialog-yes"/>
+                                                    <p:commandButton value="NO" type="button" icon="ui-icon-close"
+                                                                     styleClass="ui-confirmdialog-no"/>
+
+                                                </p:confirmDialog>
+
+                                        </div>
+
+
+                                </div>
+                            </h:form>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
+</html>
+

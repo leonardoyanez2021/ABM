@@ -1,0 +1,66 @@
+
+#information {
+    width:400px;
+    margin: 0 auto;
+    height: 112px;
+}
+
+#information span.subtitles {
+    float:left;
+}
+
+#funds_table_paginator_top {
+    display:none;
+}
+
+/* Parametrizacion de  fondos */
+
+#emisoresList > tbody > tr > td:nth-child(2) > ul {
+    width: 810px;
+}
+
+#emisoresList_head > tr {
+    display:none;
+}
+
+#emisoresList_data > tr:nth-child(1) > td:nth-child(1) {
+    width: 24px;
+}
+
+#panelGrid > tbody > tr:nth-child(2) > td:nth-child(1) {
+    border-right: 1px solid #eee;
+}
+
+#panelGrid > tbody > tr:nth-child(2) > td:nth-child(2) {
+    padding-left: 37px;
+}
+
+#dtNemotecnicos > ul {
+    width:300px;
+}
+
+#j_id15110269_e690d6_input {
+    width: 172px;
+}
+
+#j_id15110269_e690ad_input {
+    width: 172px;
+}
+
+#dtFondoPasivo > ul {
+    width:300px;
+}
+
+#j_id15110269_e690a2_input {
+    width:172px;
+}
+
+#j_id2107269159_7d9a6340 {
+    min-height: 200px;
+    max-height: 1000px;
+}
+
+#j_id2107269159_7d9a6426 {
+    min-height: 200px;
+    max-height: 1000px;
+}
