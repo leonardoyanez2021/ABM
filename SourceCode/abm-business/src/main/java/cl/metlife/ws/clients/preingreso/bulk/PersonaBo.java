@@ -64,7 +64,6 @@ public class PersonaBo {
     @XmlElement(name = "Rut", required = true, type = Integer.class, nillable = true)
     protected Integer rut;
     @XmlElement(name = "Dv", required = true, type = String.class, nillable = true)
-    @XmlSchemaType(name = "unsignedShort")
     protected String dv;
     @XmlElement(name = "Nombre")
     protected String nombre;
@@ -76,7 +75,6 @@ public class PersonaBo {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fechaNacimiento;
     @XmlElement(name = "Sexo", required = true, type = String.class, nillable = true)
-    @XmlSchemaType(name = "unsignedShort")
     protected String sexo;
     @XmlElement(name = "Peso", required = true, type = Double.class, nillable = true)
     protected Double peso;
