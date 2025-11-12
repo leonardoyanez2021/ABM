@@ -132,12 +132,9 @@ public class PreingresoMapper {
             }
 
 
-            char dvTit = detail.getColumn6().charAt(0);
+            String dvTit = detail.getColumn6();
             System.out.println("[MAPPER] Column6 (DV Titular String original): '" + detail.getColumn6() + "'");
-            System.out.println("[MAPPER] Column6.length(): " + detail.getColumn6().length());
-            System.out.println("[MAPPER] charAt(0): '" + dvTit + "'");
-            System.out.println("[MAPPER] (int)dvTit: " + (int)dvTit);
-            System.out.println("[MAPPER] ASCII code del char: " + (int)dvTit);
+            System.out.println("[MAPPER] DV Titular (String): '" + dvTit + "'");
             movtoAltaBo.getTitular().setDv(dvTit);
 
             // Carga.
@@ -150,12 +147,9 @@ public class PreingresoMapper {
             movtoAltaBo.getCarga().setRut(Integer.valueOf(rutCarga));
             System.out.println("[MAPPER] Carga.Rut (convertido a Integer): " + Integer.valueOf(rutCarga));
 
-            char dvCar = detail.getColumn8().charAt(0);
+            String dvCar = detail.getColumn8();
             System.out.println("[MAPPER] Column8 (DV Carga String original): '" + detail.getColumn8() + "'");
-            System.out.println("[MAPPER] Column8.length(): " + detail.getColumn8().length());
-            System.out.println("[MAPPER] charAt(0): '" + dvCar + "'");
-            System.out.println("[MAPPER] (int)dvCar: " + (int)dvCar);
-            System.out.println("[MAPPER] ASCII code del char: " + (int)dvCar);
+            System.out.println("[MAPPER] DV Carga (String): '" + dvCar + "'");
             movtoAltaBo.getCarga().setDv(dvCar);
             movtoAltaBo.getCarga().setApellidoPaterno(detail.getColumn9());
             movtoAltaBo.getCarga().setApellidoMaterno(detail.getColumn10());
@@ -173,7 +167,7 @@ public class PreingresoMapper {
 
             movtoAltaBo.getCarga().setFechaNacimiento((detail.getColumn12() != null) ? fechaNacimiento : null);
             movtoAltaBo.getCarga().setRelacion(detail.getColumn13());
-            movtoAltaBo.getCarga().setSexo(detail.getColumn14().charAt(0));
+            movtoAltaBo.getCarga().setSexo(detail.getColumn14());
 
             // Titular denuevo.
             movtoAltaBo.getTitular().setRenta((detail.getColumn15() != null && !detail.getColumn15().equals("null")) ? Double.valueOf(detail.getColumn15().replaceAll(",", ".")) : null);
@@ -249,7 +243,7 @@ public class PreingresoMapper {
             String rut = detail.getColumn5();
 
             movtoAltaBo.getTitular().setRut(Integer.valueOf(rut));
-            char dvTit =detail.getColumn6().charAt(0);
+            String dvTit = detail.getColumn6();
             movtoAltaBo.getTitular().setDv(dvTit);
 
             // Carga.
@@ -257,7 +251,7 @@ public class PreingresoMapper {
 
             String rutCarga = detail.getColumn7();
             movtoAltaBo.getCarga().setRut(Integer.valueOf(rutCarga));
-            char dvCar = detail.getColumn8().charAt(0);
+            String dvCar = detail.getColumn8();
             movtoAltaBo.getCarga().setDv(dvCar);
             movtoAltaBo.getCarga().setApellidoPaterno(detail.getColumn9());
             movtoAltaBo.getCarga().setApellidoMaterno(detail.getColumn10());
@@ -271,7 +265,7 @@ public class PreingresoMapper {
             fechaNacimiento.setTimezone(0);
             movtoAltaBo.getCarga().setFechaNacimiento((detail.getColumn12() != null) ? fechaNacimiento : null);
             movtoAltaBo.getCarga().setRelacion(detail.getColumn13());
-            movtoAltaBo.getCarga().setSexo(detail.getColumn14().charAt(0));
+            movtoAltaBo.getCarga().setSexo(detail.getColumn14());
             // Titular denuevo.
             movtoAltaBo.getTitular().setPeso((detail.getColumn15() != null && !detail.getColumn15().equals("null")) ? Double.valueOf(detail.getColumn15().replaceAll(",", ".")) : null);
             movtoAltaBo.getTitular().setEstatura((detail.getColumn16() != null && !detail.getColumn16().equals("null")) ? Double.valueOf(detail.getColumn16().replaceAll(",", ".")) : null);
@@ -317,12 +311,9 @@ public class PreingresoMapper {
             movtoBajaBo.getTitular().setRut(Integer.valueOf(rut));
             System.out.println("[MAPPER_BAJA] Titular.Rut (convertido a Integer): " + Integer.valueOf(rut));
 
-            char dvTit = detail.getColumn4().charAt(0);
+            String dvTit = detail.getColumn4();
             System.out.println("[MAPPER_BAJA] Column4 (DV Titular String original): '" + detail.getColumn4() + "'");
-            System.out.println("[MAPPER_BAJA] Column4.length(): " + detail.getColumn4().length());
-            System.out.println("[MAPPER_BAJA] charAt(0): '" + dvTit + "'");
-            System.out.println("[MAPPER_BAJA] (int)dvTit: " + (int)dvTit);
-            System.out.println("[MAPPER_BAJA] ASCII code del char: " + (int)dvTit);
+            System.out.println("[MAPPER_BAJA] DV Titular (String): '" + dvTit + "'");
             movtoBajaBo.getTitular().setDv(dvTit);
 
             GregorianCalendar a = new GregorianCalendar();
@@ -374,10 +365,10 @@ public class PreingresoMapper {
 
             String rut = detail.getColumn3();
             movtoBajaBo.getTitular().setRut(Integer.valueOf(rut));
-            char dvTit = detail.getColumn4().charAt(0);
+            String dvTit = detail.getColumn4();
             movtoBajaBo.getTitular().setDv(dvTit);
             String rutCarga = detail.getColumn5();
-            char dvCarga = detail.getColumn6().charAt(0);
+            String dvCarga = detail.getColumn6();
             movtoBajaBo.setCarga(new ObjectFactory().createCargaBo());
             if (rutCarga != null && !rutCarga.isEmpty()) {
                 movtoBajaBo.getCarga().setRut(Integer.parseInt(rutCarga));
