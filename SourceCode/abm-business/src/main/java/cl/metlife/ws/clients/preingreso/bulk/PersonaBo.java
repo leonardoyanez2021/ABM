@@ -63,8 +63,8 @@ public class PersonaBo {
     protected Integer id;
     @XmlElement(name = "Rut", required = true, type = Integer.class, nillable = true)
     protected Integer rut;
-    @XmlElement(name = "Dv", required = true, type = Character.class, nillable = true)
-    protected Character dv;
+    @XmlElement(name = "Dv", required = true, type = String.class, nillable = true)
+    protected String dv;
     @XmlElement(name = "Nombre")
     protected String nombre;
     @XmlElement(name = "ApellidoPaterno")
@@ -74,8 +74,8 @@ public class PersonaBo {
     @XmlElement(name = "FechaNacimiento", required = true, nillable = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fechaNacimiento;
-    @XmlElement(name = "Sexo", required = true, type = Character.class, nillable = true)
-    protected Character sexo;
+    @XmlElement(name = "Sexo", required = true, type = String.class, nillable = true)
+    protected String sexo;
     @XmlElement(name = "Peso", required = true, type = Double.class, nillable = true)
     protected Double peso;
     @XmlElement(name = "Estatura", required = true, type = Double.class, nillable = true)
@@ -136,10 +136,10 @@ public class PersonaBo {
      *
      * @return
      *     possible object is
-     *     {@link Character }
+     *     {@link String }
      *
      */
-    public Character getDv() {
+    public String getDv() {
         return dv;
     }
 
@@ -148,10 +148,10 @@ public class PersonaBo {
      *
      * @param value
      *     allowed object is
-     *     {@link Character }
+     *     {@link String }
      *
      */
-    public void setDv(Character value) {
+    public void setDv(String value) {
         this.dv = value;
     }
 
@@ -256,10 +256,10 @@ public class PersonaBo {
      *
      * @return
      *     possible object is
-     *     {@link Character }
+     *     {@link String }
      *
      */
-    public Character getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
@@ -268,10 +268,10 @@ public class PersonaBo {
      *
      * @param value
      *     allowed object is
-     *     {@link Character }
+     *     {@link String }
      *
      */
-    public void setSexo(Character value) {
+    public void setSexo(String value) {
         this.sexo = value;
     }
 
