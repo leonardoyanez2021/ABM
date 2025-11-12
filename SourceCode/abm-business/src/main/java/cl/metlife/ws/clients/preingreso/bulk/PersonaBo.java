@@ -63,8 +63,8 @@ public class PersonaBo {
     protected Integer id;
     @XmlElement(name = "Rut", required = true, type = Integer.class, nillable = true)
     protected Integer rut;
-    @XmlElement(name = "Dv", required = true, type = String.class, nillable = true)
-    protected String dv;
+    @XmlElement(name = "Dv", required = true, type = Character.class, nillable = true)
+    protected Character dv;
     @XmlElement(name = "Nombre")
     protected String nombre;
     @XmlElement(name = "ApellidoPaterno")
@@ -74,8 +74,8 @@ public class PersonaBo {
     @XmlElement(name = "FechaNacimiento", required = true, nillable = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fechaNacimiento;
-    @XmlElement(name = "Sexo", required = true, type = String.class, nillable = true)
-    protected String sexo;
+    @XmlElement(name = "Sexo", required = true, type = Character.class, nillable = true)
+    protected Character sexo;
     @XmlElement(name = "Peso", required = true, type = Double.class, nillable = true)
     protected Double peso;
     @XmlElement(name = "Estatura", required = true, type = Double.class, nillable = true)
@@ -133,25 +133,25 @@ public class PersonaBo {
 
     /**
      * Obtiene el valor de la propiedad dv.
-     * 
+     *
      * @return
      *     possible object is
-     *     {@link String }
-     *     
+     *     {@link Character }
+     *
      */
-    public String getDv() {
+    public Character getDv() {
         return dv;
     }
 
     /**
      * Define el valor de la propiedad dv.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link Character }
+     *
      */
-    public void setDv(String value) {
+    public void setDv(Character value) {
         this.dv = value;
     }
 
@@ -253,25 +253,25 @@ public class PersonaBo {
 
     /**
      * Obtiene el valor de la propiedad sexo.
-     * 
+     *
      * @return
      *     possible object is
-     *     {@link String }
-     *     
+     *     {@link Character }
+     *
      */
-    public String getSexo() {
+    public Character getSexo() {
         return sexo;
     }
 
     /**
      * Define el valor de la propiedad sexo.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link Character }
+     *
      */
-    public void setSexo(String value) {
+    public void setSexo(Character value) {
         this.sexo = value;
     }
 

@@ -161,13 +161,13 @@ public class PreIngresoManager {
                 System.out.println("[DATA_TRACE] GrupoId: " + movtoAltaBo.getGrupoId());
                 if(movtoAltaBo.getTitular() != null) {
                     System.out.println("[DATA_TRACE] Titular.Rut: " + movtoAltaBo.getTitular().getRut());
-                    System.out.println("[DATA_TRACE] Titular.Dv: " + movtoAltaBo.getTitular().getDv() + " (valor int del char)");
-                    System.out.println("[DATA_TRACE] Titular.Dv como char: '" + (char)movtoAltaBo.getTitular().getDv().intValue() + "'");
+                    System.out.println("[DATA_TRACE] Titular.Dv: '" + movtoAltaBo.getTitular().getDv() + "'");
+                    System.out.println("[DATA_TRACE] Titular.Dv como char: '" + movtoAltaBo.getTitular().getDv() + "'");
                 }
                 if(movtoAltaBo.getCarga() != null) {
                     System.out.println("[DATA_TRACE] Carga.Rut: " + movtoAltaBo.getCarga().getRut());
-                    System.out.println("[DATA_TRACE] Carga.Dv: " + movtoAltaBo.getCarga().getDv() + " (valor int del char)");
-                    System.out.println("[DATA_TRACE] Carga.Dv como char: '" + (char)movtoAltaBo.getCarga().getDv().intValue() + "'");
+                    System.out.println("[DATA_TRACE] Carga.Dv: '" + movtoAltaBo.getCarga().getDv() + "'");
+                    System.out.println("[DATA_TRACE] Carga.Dv como char: '" + movtoAltaBo.getCarga().getDv() + "'");
                     System.out.println("[DATA_TRACE] Carga.Nombre: '" + movtoAltaBo.getCarga().getNombre() + "'");
                 }
                 System.out.println("[DATA_TRACE] Lote: " + movtoAltaBo.getLote());
@@ -494,8 +494,8 @@ public class PreIngresoManager {
                 System.out.println("[DATA_TRACE_BAJA] GrupoId: " + movtoBajaBo.getGrupoId());
                 if(movtoBajaBo.getTitular() != null) {
                     System.out.println("[DATA_TRACE_BAJA] Titular.Rut: " + movtoBajaBo.getTitular().getRut());
-                    System.out.println("[DATA_TRACE_BAJA] Titular.Dv: " + movtoBajaBo.getTitular().getDv() + " (valor int del char)");
-                    System.out.println("[DATA_TRACE_BAJA] Titular.Dv como char: '" + (char)movtoBajaBo.getTitular().getDv().intValue() + "'");
+                    System.out.println("[DATA_TRACE_BAJA] Titular.Dv: '" + movtoBajaBo.getTitular().getDv() + "'");
+                    System.out.println("[DATA_TRACE_BAJA] Titular.Dv como char: '" + movtoBajaBo.getTitular().getDv() + "'");
                 }
                 System.out.println("[DATA_TRACE_BAJA] Lote: " + movtoBajaBo.getLote());
                 System.out.println("[DATA_TRACE_BAJA] Barcode: " + movtoBajaBo.getBarcode());
