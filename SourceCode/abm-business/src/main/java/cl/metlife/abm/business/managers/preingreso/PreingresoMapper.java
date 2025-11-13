@@ -9,11 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -103,10 +105,14 @@ public class PreingresoMapper {
             if(detail.getColumn3() != null){
                 if(detail.getColumn3().contains("-"))
                     detail.setColumn3(detail.getColumn3().replace("-", "/"));
-                GregorianCalendar a = new GregorianCalendar(); a.setTime(format.parse(detail.getColumn3()));
-                XMLGregorianCalendar fechaDesde = null;
-                fechaDesde = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-                fechaDesde.setTimezone(0);
+                GregorianCalendar a = new GregorianCalendar();
+                a.setTime(format.parse(detail.getColumn3()));
+                XMLGregorianCalendar fechaDesde = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                    a.get(Calendar.YEAR),
+                    a.get(Calendar.MONTH) + 1,
+                    a.get(Calendar.DAY_OF_MONTH),
+                    DatatypeConstants.FIELD_UNDEFINED
+                );
                 movtoAltaBo.setFechaInicioVigencia(fechaDesde);
             }
 
@@ -114,10 +120,14 @@ public class PreingresoMapper {
                 if(detail.getColumn4().contains("-"))
                     detail.setColumn4(detail.getColumn4().replace("-", "/"));
 
-                GregorianCalendar b = new GregorianCalendar(); b.setTime(format.parse(detail.getColumn4()));
-                XMLGregorianCalendar fechaHasta = null;
-                fechaHasta = DatatypeFactory.newInstance().newXMLGregorianCalendar(b);
-                fechaHasta.setTimezone(0);
+                GregorianCalendar b = new GregorianCalendar();
+                b.setTime(format.parse(detail.getColumn4()));
+                XMLGregorianCalendar fechaHasta = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                    b.get(Calendar.YEAR),
+                    b.get(Calendar.MONTH) + 1,
+                    b.get(Calendar.DAY_OF_MONTH),
+                    DatatypeConstants.FIELD_UNDEFINED
+                );
                 movtoAltaBo.setFechaTerminoVigencia(fechaHasta);
             }
 
@@ -161,9 +171,12 @@ public class PreingresoMapper {
                 detail.setColumn12(detail.getColumn12().replace("-", "/"));
 
             a.setTime(format.parse(detail.getColumn12()));
-            XMLGregorianCalendar fechaNacimiento = null;
-            fechaNacimiento = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-            fechaNacimiento.setTimezone(0);
+            XMLGregorianCalendar fechaNacimiento = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                a.get(Calendar.YEAR),
+                a.get(Calendar.MONTH) + 1,
+                a.get(Calendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED
+            );
 
             movtoAltaBo.getCarga().setFechaNacimiento((detail.getColumn12() != null) ? fechaNacimiento : null);
             movtoAltaBo.getCarga().setRelacion(detail.getColumn13());
@@ -231,10 +244,14 @@ public class PreingresoMapper {
                 if(detail.getColumn4().contains("-"))
                     detail.setColumn4(detail.getColumn4().replace("-", "/"));
 
-                GregorianCalendar b = new GregorianCalendar(); b.setTime(format.parse(detail.getColumn4()));
-                XMLGregorianCalendar fechaHasta = null;
-                fechaHasta = DatatypeFactory.newInstance().newXMLGregorianCalendar(b);
-                fechaHasta.setTimezone(0);
+                GregorianCalendar b = new GregorianCalendar();
+                b.setTime(format.parse(detail.getColumn4()));
+                XMLGregorianCalendar fechaHasta = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                    b.get(Calendar.YEAR),
+                    b.get(Calendar.MONTH) + 1,
+                    b.get(Calendar.DAY_OF_MONTH),
+                    DatatypeConstants.FIELD_UNDEFINED
+                );
                 movtoAltaBo.setFechaTerminoVigencia(fechaHasta);
             }
 
@@ -322,9 +339,12 @@ public class PreingresoMapper {
                 detail.setColumn5(detail.getColumn5().replace("-", "/"));
 
             a.setTime(format.parse(detail.getColumn5()));
-            XMLGregorianCalendar fechaBaja = null;
-            fechaBaja = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-            fechaBaja.setTimezone(0);
+            XMLGregorianCalendar fechaBaja = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                a.get(Calendar.YEAR),
+                a.get(Calendar.MONTH) + 1,
+                a.get(Calendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED
+            );
 
             movtoBajaBo.setFechaBaja((detail.getColumn5() != null) ? fechaBaja : null);
             movtoBajaBo.setLote(detail.getColumn6());
@@ -389,9 +409,12 @@ public class PreingresoMapper {
             else{
                 a.setTime(new Date());
             }
-            XMLGregorianCalendar fechaBaja = null;
-            fechaBaja = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-            fechaBaja.setTimezone(0);
+            XMLGregorianCalendar fechaBaja = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                a.get(Calendar.YEAR),
+                a.get(Calendar.MONTH) + 1,
+                a.get(Calendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED
+            );
             movtoBajaBo.setFechaBaja((detail.getColumn7() != null) ? fechaBaja : null);
             movtoBajaBo.setBarcode(detail.getColumn12());
 
@@ -444,8 +467,12 @@ public class PreingresoMapper {
                 a.setTime(format.parse(detail.getColumn7()));
             }
 
-            XMLGregorianCalendar fecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-            fecha.setTimezone(0);
+            XMLGregorianCalendar fecha = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                a.get(Calendar.YEAR),
+                a.get(Calendar.MONTH) + 1,
+                a.get(Calendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED
+            );
 
             movtoTraspasoBo.setFechaInicioVigencia((detail.getColumn7() != null) ? fecha : null);
             movtoTraspasoBo.setHistoriaTopesLiquidaciones(Integer.valueOf(detail.getColumn8()));
@@ -495,10 +522,12 @@ public class PreingresoMapper {
             }
 
             LOGGER.info(gCalendarFechaVigenciaDesde.toString());
-            XMLGregorianCalendar fechaVigenciaDesde = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendarFechaVigenciaDesde);
-
-
-            fechaVigenciaDesde.setTimezone(0);
+            XMLGregorianCalendar fechaVigenciaDesde = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                gCalendarFechaVigenciaDesde.get(Calendar.YEAR),
+                gCalendarFechaVigenciaDesde.get(Calendar.MONTH) + 1,
+                gCalendarFechaVigenciaDesde.get(Calendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED
+            );
 
             mvtoAgregarBeneficiario.setFechaVigenciaDesde((detail.getColumn3() != null) ? fechaVigenciaDesde : null);
             System.out.println("Fecha Vigencia Desde: "+fechaVigenciaDesde);
@@ -520,8 +549,12 @@ public class PreingresoMapper {
             if(detail.getColumn12().contains("/")){
                 a.setTime(format.parse(detail.getColumn12()));
             }
-            XMLGregorianCalendar fecha = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-            fecha.setTimezone(0);
+            XMLGregorianCalendar fecha = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                a.get(Calendar.YEAR),
+                a.get(Calendar.MONTH) + 1,
+                a.get(Calendar.DAY_OF_MONTH),
+                DatatypeConstants.FIELD_UNDEFINED
+            );
 
             mvtoAgregarBeneficiario.setBeneficiarioFchNacimiento((detail.getColumn12() != null) ? fecha : null);
             mvtoAgregarBeneficiario.setBeneficiarioRelacion(detail.getColumn13());
