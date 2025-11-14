@@ -220,6 +220,12 @@ public class PreingresoMapper {
         DateFormat format = new SimpleDateFormat(formatPattern);
         System.out.println("makeMovtoAltoBoAltaCarga");
         System.out.println(detail.toString());
+
+        // Detectar si el CSV tiene estructura de 28 columnas (ALTA_TITULAR) o 21 columnas (ALTA_CARGA)
+        // Si Column25 tiene valor, entonces es estructura de 28 columnas
+        boolean isExtendedFormat = (detail.getColumn25() != null && !detail.getColumn25().trim().isEmpty());
+        System.out.println("[MAPPER_ALTA_CARGA] Formato detectado: " + (isExtendedFormat ? "28 columnas (ALTA_TITULAR)" : "21 columnas (ALTA_CARGA)"));
+
         MovtoAltaBo movtoAltaBo = null;
         try {
             movtoAltaBo = new MovtoAltaBo();
@@ -228,19 +234,25 @@ public class PreingresoMapper {
             movtoAltaBo.setPolizaNumero(Integer.valueOf(detail.getColumn1()));
             movtoAltaBo.setGrupoId(Integer.valueOf(detail.getColumn2()==null?"0":detail.getColumn2()));
 
-            if(detail.getColumn3() != null){
+            if(detail.getColumn3() != null && !detail.getColumn3().trim().isEmpty()){
                 if(detail.getColumn3().contains("-"))
                     detail.setColumn3(detail.getColumn3().replace("-", "/"));
 
                 GregorianCalendar a = new GregorianCalendar();
                 a.setTime(format.parse(detail.getColumn3()));
-                XMLGregorianCalendar fechaDesde = null;
-                fechaDesde = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-                fechaDesde.setTimezone(0);
+                XMLGregorianCalendar fechaDesde = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                    a.get(Calendar.YEAR),
+                    a.get(Calendar.MONTH) + 1,
+                    a.get(Calendar.DAY_OF_MONTH),
+                    DatatypeConstants.FIELD_UNDEFINED
+                );
                 movtoAltaBo.setFechaInicioVigencia(fechaDesde);
+                System.out.println("[MAPPER_ALTA_CARGA] FechaInicioVigencia seteada: " + fechaDesde);
+            } else {
+                System.out.println("[MAPPER_ALTA_CARGA] WARNING: Column3 (FechaDesde) es null o vacio!");
             }
 
-            if(detail.getColumn4() != null){
+            if(detail.getColumn4() != null && !detail.getColumn4().trim().isEmpty()){
                 if(detail.getColumn4().contains("-"))
                     detail.setColumn4(detail.getColumn4().replace("-", "/"));
 
@@ -273,34 +285,82 @@ public class PreingresoMapper {
             movtoAltaBo.getCarga().setApellidoPaterno(detail.getColumn9());
             movtoAltaBo.getCarga().setApellidoMaterno(detail.getColumn10());
             movtoAltaBo.getCarga().setNombre(detail.getColumn11());
-            GregorianCalendar a = new GregorianCalendar();
-            if(detail.getColumn12().contains("-"))
-                detail.setColumn12(detail.getColumn12().replace("-", "/"));
-            a.setTime(format.parse(detail.getColumn12()));
-            XMLGregorianCalendar fechaNacimiento = null;
-            fechaNacimiento = DatatypeFactory.newInstance().newXMLGregorianCalendar(a);
-            fechaNacimiento.setTimezone(0);
-            movtoAltaBo.getCarga().setFechaNacimiento((detail.getColumn12() != null) ? fechaNacimiento : null);
+
+            if(detail.getColumn12() != null && !detail.getColumn12().trim().isEmpty()) {
+                GregorianCalendar a = new GregorianCalendar();
+                if(detail.getColumn12().contains("-"))
+                    detail.setColumn12(detail.getColumn12().replace("-", "/"));
+                a.setTime(format.parse(detail.getColumn12()));
+                XMLGregorianCalendar fechaNacimiento = DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                    a.get(Calendar.YEAR),
+                    a.get(Calendar.MONTH) + 1,
+                    a.get(Calendar.DAY_OF_MONTH),
+                    DatatypeConstants.FIELD_UNDEFINED
+                );
+                movtoAltaBo.getCarga().setFechaNacimiento(fechaNacimiento);
+                System.out.println("[MAPPER_ALTA_CARGA] FechaNacimiento seteada: " + fechaNacimiento);
+            } else {
+                System.out.println("[MAPPER_ALTA_CARGA] WARNING: Column12 (FechaNacimiento) es null o vacio!");
+            }
+
             movtoAltaBo.getCarga().setRelacion(detail.getColumn13());
             movtoAltaBo.getCarga().setSexo(detail.getColumn14());
-            // Titular denuevo.
-            movtoAltaBo.getTitular().setPeso((detail.getColumn15() != null && !detail.getColumn15().equals("null")) ? Double.valueOf(detail.getColumn15().replaceAll(",", ".")) : null);
-            movtoAltaBo.getTitular().setEstatura((detail.getColumn16() != null && !detail.getColumn16().equals("null")) ? Double.valueOf(detail.getColumn16().replaceAll(",", ".")) : null);
-            movtoAltaBo.getTitular().setPreExistencia(detail.getColumn17());
-            movtoAltaBo.setLote(detail.getColumn18());
-            movtoAltaBo.setBarcode(detail.getColumn19());
 
-            // Corredor
-            movtoAltaBo.setCorredor(new ObjectFactory().createCorredorBo());
-            movtoAltaBo.getCorredor().setRutDv(detail.getColumn20());
-            movtoAltaBo.getCorredor().setNombre(detail.getColumn21());
+            // Mapeo de columnas según formato detectado
+            if(isExtendedFormat) {
+                // Formato de 28 columnas (estructura ALTA_TITULAR)
+                // Column15-24 contienen los campos adicionales de ALTA_TITULAR
+                // Los campos que necesitamos están en Column25-28
+                movtoAltaBo.getTitular().setPeso((detail.getColumn17() != null && !detail.getColumn17().equals("null") && !detail.getColumn17().trim().isEmpty()) ? Double.valueOf(detail.getColumn17().replaceAll(",", ".")) : null);
+                movtoAltaBo.getTitular().setEstatura((detail.getColumn18() != null && !detail.getColumn18().equals("null") && !detail.getColumn18().trim().isEmpty()) ? Double.valueOf(detail.getColumn18().replaceAll(",", ".")) : null);
+                movtoAltaBo.getTitular().setPreExistencia(detail.getColumn19());
+                movtoAltaBo.setLote(detail.getColumn25());
+                movtoAltaBo.setBarcode(detail.getColumn26());
+
+                // Corredor
+                movtoAltaBo.setCorredor(new ObjectFactory().createCorredorBo());
+                movtoAltaBo.getCorredor().setRutDv(detail.getColumn27());
+                movtoAltaBo.getCorredor().setNombre(detail.getColumn28());
+
+                System.out.println("[MAPPER_ALTA_CARGA] Usando mapeo de 28 columnas:");
+                System.out.println("  - Peso: Column17 = " + detail.getColumn17());
+                System.out.println("  - Estatura: Column18 = " + detail.getColumn18());
+                System.out.println("  - PreExistencia: Column19 = " + detail.getColumn19());
+                System.out.println("  - Lote: Column25 = " + detail.getColumn25());
+                System.out.println("  - Barcode: Column26 = " + detail.getColumn26());
+                System.out.println("  - RutCorredor: Column27 = " + detail.getColumn27());
+                System.out.println("  - NombreCorredor: Column28 = " + detail.getColumn28());
+            } else {
+                // Formato de 21 columnas (estructura ALTA_CARGA estándar)
+                movtoAltaBo.getTitular().setPeso((detail.getColumn15() != null && !detail.getColumn15().equals("null") && !detail.getColumn15().trim().isEmpty()) ? Double.valueOf(detail.getColumn15().replaceAll(",", ".")) : null);
+                movtoAltaBo.getTitular().setEstatura((detail.getColumn16() != null && !detail.getColumn16().equals("null") && !detail.getColumn16().trim().isEmpty()) ? Double.valueOf(detail.getColumn16().replaceAll(",", ".")) : null);
+                movtoAltaBo.getTitular().setPreExistencia(detail.getColumn17());
+                movtoAltaBo.setLote(detail.getColumn18());
+                movtoAltaBo.setBarcode(detail.getColumn19());
+
+                // Corredor
+                movtoAltaBo.setCorredor(new ObjectFactory().createCorredorBo());
+                movtoAltaBo.getCorredor().setRutDv(detail.getColumn20());
+                movtoAltaBo.getCorredor().setNombre(detail.getColumn21());
+
+                System.out.println("[MAPPER_ALTA_CARGA] Usando mapeo de 21 columnas:");
+                System.out.println("  - Lote: Column18 = " + detail.getColumn18());
+                System.out.println("  - Barcode: Column19 = " + detail.getColumn19());
+                System.out.println("  - RutCorredor: Column20 = " + detail.getColumn20());
+                System.out.println("  - NombreCorredor: Column21 = " + detail.getColumn21());
+            }
 
             movtoAltaBo.setPortalUsuario(user);
 
             return movtoAltaBo;
         } catch (DatatypeConfigurationException e) {
+            System.out.println("[MAPPER_ALTA_CARGA] ERROR DatatypeConfigurationException: " + e.getMessage());
             e.printStackTrace();
         } catch (ParseException e) {
+            System.out.println("[MAPPER_ALTA_CARGA] ERROR ParseException: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("[MAPPER_ALTA_CARGA] ERROR Exception: " + e.getMessage());
             e.printStackTrace();
         }
 
