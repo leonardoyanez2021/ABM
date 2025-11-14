@@ -535,6 +535,20 @@ public class ProcessExecutionManager {
         else{
             finalString.append(rows[0].concat(";Lot Id\r\n"));
         }
+
+        // Detectar formato: contar columnas en el header o primer registro de datos
+        boolean isExtendedFormat = false;
+        if(rows.length > 1){
+            String firstDataRow = rows[1];
+            String[] testSplit = firstDataRow.split(";");
+            // Si tiene 28 columnas, es formato extendido (ALTA_TITULAR structure)
+            // Si tiene 21 columnas, es formato estándar (ALTA_CARGA)
+            isExtendedFormat = (testSplit.length >= 28);
+            LOGGER.info("fixFileAltaCarga - Formato detectado: " + (isExtendedFormat ? "28 columnas (extendido)" : "21 columnas (estandar)"));
+        }
+
+        int lotColumnIndex = isExtendedFormat ? 24 : 17;
+
         if(isweb){
             LOGGER.info("FIXALTATIT");
             for(int i=1;i<rows.length;i++){
@@ -545,8 +559,8 @@ public class ProcessExecutionManager {
                     //esta fila no va de vuelta
                 }
                 else{
-                    if(i!=0){
-                        SplitedRow[17]=""+lotid;
+                    if(i!=0 && SplitedRow.length > lotColumnIndex){
+                        SplitedRow[lotColumnIndex]=""+lotid;
                     }
                     row = joinArray(SplitedRow,";",lotid);
                     finalString.append(row);
@@ -563,8 +577,8 @@ public class ProcessExecutionManager {
                     //esta fila no va de vuelta
                 }
                 else{
-                    if(i!=0){
-                        SplitedRow[17]=""+lotid;
+                    if(i!=0 && SplitedRow.length > lotColumnIndex){
+                        SplitedRow[lotColumnIndex]=""+lotid;
                     }
                     row = joinArray(SplitedRow,";",lotid);
                     finalString.append(row);
