@@ -226,6 +226,11 @@ public class PreingresoMapper {
         boolean isExtendedFormat = (detail.getColumn25() != null && !detail.getColumn25().trim().isEmpty());
         System.out.println("[MAPPER_ALTA_CARGA] Formato detectado: " + (isExtendedFormat ? "28 columnas (ALTA_TITULAR)" : "21 columnas (ALTA_CARGA)"));
 
+        // Debug adicional para fechas
+        System.out.println("[MAPPER_ALTA_CARGA] >>> DEBUG FECHAS <<<");
+        System.out.println("[MAPPER_ALTA_CARGA] Column3 (FechaInicioVigencia): '" + detail.getColumn3() + "' (is null: " + (detail.getColumn3() == null) + ", is empty: " + (detail.getColumn3() != null && detail.getColumn3().trim().isEmpty()) + ")");
+        System.out.println("[MAPPER_ALTA_CARGA] Column12 (FechaNacimiento): '" + detail.getColumn12() + "' (is null: " + (detail.getColumn12() == null) + ", is empty: " + (detail.getColumn12() != null && detail.getColumn12().trim().isEmpty()) + ")");
+
         MovtoAltaBo movtoAltaBo = null;
         try {
             movtoAltaBo = new MovtoAltaBo();
