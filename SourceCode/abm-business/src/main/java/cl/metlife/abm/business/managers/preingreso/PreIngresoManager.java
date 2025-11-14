@@ -147,10 +147,12 @@ public class PreIngresoManager {
                 System.out.println("\n========== [DATA_TRACE] INICIO PROCESAMIENTO DETALLE ==========");
                 System.out.println("[DATA_TRACE] >>> DATOS ORIGINALES DEL CSV (Detail) <<<");
                 System.out.println("[DATA_TRACE] Detail.toString(): " + detail.toString());
+                System.out.println("[DATA_TRACE] Column3 (FechaInicioVigencia): '" + detail.getColumn3() + "' (is null: " + (detail.getColumn3() == null) + ")");
                 System.out.println("[DATA_TRACE] Column5 (RUT Titular): '" + detail.getColumn5() + "'");
                 System.out.println("[DATA_TRACE] Column6 (DV Titular): '" + detail.getColumn6() + "' (length: " + (detail.getColumn6() != null ? detail.getColumn6().length() : "null") + ")");
                 System.out.println("[DATA_TRACE] Column7 (RUT Carga): '" + detail.getColumn7() + "'");
                 System.out.println("[DATA_TRACE] Column8 (DV Carga): '" + detail.getColumn8() + "' (length: " + (detail.getColumn8() != null ? detail.getColumn8().length() : "null") + ")");
+                System.out.println("[DATA_TRACE] Column12 (FechaNacimiento): '" + detail.getColumn12() + "' (is null: " + (detail.getColumn12() == null) + ")");
 
                 MovtoAltaBo movtoAltaBo = preingresoMapper.makeMovtoAltoBo(detail, detailLot, user, crearResponse.getId());
                 movtoAltaBo.setLote(""+lote);
